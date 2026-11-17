@@ -103,6 +103,7 @@
       toggle.addEventListener('click', function(){
         var isPw = pw.type === 'password';
         pw.type = isPw ? 'text' : 'password';
+        toggle.setAttribute('aria-label', isPw ? 'Hide password' : 'Show password');
         toggle.innerHTML = isPw ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
       });
     }

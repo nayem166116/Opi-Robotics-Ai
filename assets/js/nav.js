@@ -32,6 +32,7 @@
     lastFocused = document.activeElement;
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden','false');
+    if(trigger) trigger.setAttribute('aria-expanded','true');
     document.body.style.overflow = 'hidden';
     document.body.classList.add('nav-open');
     var first = overlay.querySelector('a, button');
@@ -42,6 +43,7 @@
     if(!overlay) return;
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden','true');
+    if(trigger) trigger.setAttribute('aria-expanded','false');
     document.body.style.overflow = '';
     document.body.classList.remove('nav-open');
     document.removeEventListener('keydown', trapFocus);

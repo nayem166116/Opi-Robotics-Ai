@@ -19,7 +19,7 @@
   var skeleton = document.querySelector('#roi-skeleton');
   var submitBtn = document.querySelector('#roi-submit');
 
-  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function fmt(n){ return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); }
 
   function syncOutputs(){
     outputs.machines.textContent = machines.value;
@@ -48,12 +48,14 @@
     var monthlySavings = recoveredDowntime + recoveredLabor;
     var annualSavings = monthlySavings * 12;
 
-    var estMonthlyPlatformCost = Math.max(1800, m * 145);
-    var netMonthly = monthlySavings - estMonthlyPlatformCost;
-    var paybackMonths = netMonthly > 0 ? (estMonthlyPlatformCost / monthlySavings) * 1 : null;
-    var paybackWeeks = monthlySavings > 0 ? Math.max(1, Math.round((estMonthlyPlatformCost / monthlySavings) * 4.33)) : null;
+    // Published prices are starting rates. Enterprise is custom, so no cost
+    // or net estimate can be inferred above the Scale tier's 150 nodes.
+    var estMonthlyPlatformCost = m <= 25 ? m * 340 : m <= 150 ? m * 260 : null;
+    var netMonthly = estMonthlyPlatformCost === null ? null : monthlySavings - estMonthlyPlatformCost;
+    // Payback requires an upfront project cost, which this form does not ask
+    // for. A recurring monthly fee must not be treated as a one-time cost.
+    return { monthlySavings, annualSavings, estMonthlyPlatformCost, netMonthly };
 
-    return { monthlySavings, annualSavings, estMonthlyPlatformCost, netMonthly, paybackWeeks };
   }
 
   form.addEventListener('submit', function(e){
@@ -62,14 +64,15 @@
     submitBtn.querySelector('.btn__cell--label').textContent = 'Calculating…';
     resultPanel.style.display = 'none';
     skeleton.style.display = 'block';
+    document.querySelector('#roi-placeholder').style.display = 'none';
 
     setTimeout(function(){
       var r = compute();
       document.querySelector('#res-monthly').textContent = fmt(r.monthlySavings) + '/mo';
       document.querySelector('#res-annual').textContent = fmt(r.annualSavings) + '/yr';
-      document.querySelector('#res-platform').textContent = fmt(r.estMonthlyPlatformCost) + '/mo';
-      document.querySelector('#res-net').textContent = (r.netMonthly >= 0 ? '+' : '') + fmt(r.netMonthly) + '/mo';
-      document.querySelector('#res-payback').textContent = r.paybackWeeks ? ('~' + r.paybackWeeks + ' weeks') : 'Add downtime data to estimate';
+      document.querySelector('#res-platform').textContent = r.estMonthlyPlatformCost === null ? '—' : fmt(r.estMonthlyPlatformCost) + '/mo';
+      document.querySelector('#res-net').textContent = r.netMonthly === null ? '—' : (r.netMonthly >= 0 ? '+' : '') + fmt(r.netMonthly) + '/mo';
+      document.querySelector('#res-payback').textContent = '—';
 
       skeleton.style.display = 'none';
       resultPanel.style.display = 'block';

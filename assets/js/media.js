@@ -28,37 +28,7 @@
     video.classList.add('is-ready');
   }
 
-  // Poster images follow the same drop-in rule as the videos, so accept any
-  // common still format: <name>-poster.jpg | .jpeg | .png | .webp | .avif.
-  // The markup asks for .jpg; if that 404s we probe the alternatives.
-  function resolvePoster(video){
-    var slots = (video.getAttribute('data-media-slots') ||
-                 video.getAttribute('data-media') || '')
-      .split(',').filter(Boolean);
-    if(!slots.length) return;
-
-    var exts = ['jpg','jpeg','png','webp','avif'];
-    var candidates = [];
-    slots.forEach(function(slot){
-      exts.forEach(function(ext){
-        candidates.push('/assets/media/' + slot + '-poster.' + ext);
-      });
-    });
-
-    var i = 0;
-    function tryNext(){
-      if(i >= candidates.length){ video.removeAttribute('poster'); return; }
-      var candidate = candidates[i++];
-      var probe = new Image();
-      probe.onload = function(){ video.setAttribute('poster', candidate); };
-      probe.onerror = tryNext;
-      probe.src = candidate;
-    }
-    tryNext();
-  }
-
   Array.prototype.forEach.call(videos, function(video){
-    resolvePoster(video);
 
     // `error` fires when every <source> failed (missing file, bad codec, 404).
     video.addEventListener('error', function(){ drop(video); });

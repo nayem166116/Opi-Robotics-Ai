@@ -1,0 +1,90 @@
+/* Opi Robotics — UI/UX polish layer. Visual refinements only; copy and structure unchanged. */
+html{scroll-padding-top:96px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+::selection{background:rgba(131,205,221,.32);color:#fff}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+
+/* Readability: consistent small-text sizes */
+.eyebrow{font-size:12px}
+.hint{font-size:14px;line-height:1.55;color:var(--text-3)}
+.hero-stats .stat span{font-size:11px;line-height:1.4}
+.media-caption{line-height:1.5}
+
+/* Header: logo a touch larger and easier to read */
+.wordmark__logo{height:44px;max-width:260px}
+@media (max-width:560px){.wordmark__logo{height:38px;max-width:200px}}
+
+/* Calmer vertical rhythm: trim oversized gaps between sections */
+.section{padding:88px 0}
+.section--light{padding:64px 0}
+.finale{min-height:0;padding:72px var(--gutter)}
+@media (max-width:899px){
+  .section{padding:64px 0}.section--light{padding:48px 0}
+  .finale{padding:56px var(--gutter)}
+}
+
+/* Home: the working-principle quote reads as a real pull quote */
+.home-principle .mask-inner{font-size:clamp(1.5rem,1.05rem + 1.9vw,2.35rem) !important;line-height:1.3 !important;text-wrap:balance}
+
+/* Centered copy over video: stronger scrim for legible text */
+.media-frame:has(.media-frame__body--center) .media-frame__scrim{
+  background:radial-gradient(ellipse 70% 65% at 50% 50%,rgba(4,10,20,.82) 0%,rgba(4,10,20,.6) 55%,rgba(4,10,20,.35) 100%)
+}
+
+/* Links: clear hover/focus feedback */
+.row-link{transition:color .2s}
+.row-link:hover{color:#a9d6ff;text-decoration:underline;text-underline-offset:4px}
+.prose a,.row-card__body a{text-underline-offset:3px}
+.btn:focus-visible,.nav-trigger:focus-visible,.nav-close:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+
+/* Blog list: whole row clearly clickable */
+.blog-row{position:relative;padding-right:56px;transition:background .25s,padding .25s}
+.blog-row::after{content:"\f061";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;right:16px;top:50%;transform:translate(-6px,-50%);font-size:14px;color:var(--text-3);opacity:.6;transition:transform .25s,opacity .25s,color .25s}
+@media (hover:hover){
+  .blog-row:hover{background:rgba(255,255,255,.025)}
+  .blog-row:hover::after{transform:translate(0,-50%);opacity:1;color:#a6d2e6}
+}
+.blog-row:focus-visible h3{color:#a6d2e6}
+
+/* Free tool: result area no longer an empty column */
+#roi-placeholder{
+  min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:32px;text-align:center;border:1px dashed var(--border-strong);border-radius:4px;
+  background:rgba(16,28,41,.45);color:var(--text-2);font-size:15px !important;line-height:1.6
+}
+#roi-placeholder::before{content:"\f1ec";font-family:"Font Awesome 6 Free";font-weight:900;font-size:26px;color:var(--a);opacity:.85}
+@media (min-width:900px){
+  .tool-grid > div:last-child{position:sticky;top:96px}
+  #roi-placeholder{min-height:420px}
+}
+.result-line b{font-variant-numeric:tabular-nums}
+.range-row output{font-variant-numeric:tabular-nums}
+
+/* Auth pages: balanced form + message columns */
+@media (min-width:900px){
+  .auth-grid{grid-template-columns:minmax(0,480px) minmax(0,1fr);gap:clamp(48px,7vw,104px)}
+  .auth-aside{padding-top:12px;max-width:520px}
+}
+.auth-card .hint{text-align:center}
+
+/* About: inline index/timeline columns waste width on phones */
+@media (max-width:639px){
+  .row-card[style*="grid-template-columns:90px 1fr"]{grid-template-columns:32px 1fr !important;gap:12px}
+  div[style*="grid-template-columns:140px 1fr"]{grid-template-columns:56px 1fr !important;gap:16px !important}
+}
+
+/* Pricing table: hint that it scrolls sideways on small screens */
+@media (max-width:899px){
+  .matrix-scroll{background:
+    linear-gradient(90deg,var(--bg) 30%,transparent) left/40px 100% no-repeat local,
+    linear-gradient(270deg,var(--bg) 30%,transparent) right/40px 100% no-repeat local,
+    linear-gradient(90deg,rgba(0,0,0,.45),transparent) left/16px 100% no-repeat scroll,
+    linear-gradient(270deg,rgba(0,0,0,.45),transparent) right/16px 100% no-repeat scroll}
+}
+
+/* Cookie banner on phones: evenly sized, easy-to-tap buttons */
+@media (max-width:639px){
+  .cookie-banner__actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cookie-banner__actions .btn{width:100%;justify-content:center}
+  .cookie-banner__actions .btn-text{grid-column:1/-1;justify-content:center}
+}

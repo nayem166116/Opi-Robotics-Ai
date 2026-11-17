@@ -5,6 +5,12 @@
   var banner = document.querySelector('.cookie-banner');
   var modal = document.querySelector('.cookie-modal');
   if(!banner) return;
+  var previousFocus = null;
+  function closeModal(){
+    if(modal) modal.classList.remove('is-open');
+    if(!getPrefs()) banner.classList.add('is-visible');
+    if(previousFocus && previousFocus.isConnected) previousFocus.focus();
+  }
 
   function getPrefs(){
     try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; }
@@ -35,8 +41,11 @@
       var prefs = getPrefs() || { analytics:false, marketing:false };
       if(analyticsToggle) analyticsToggle.checked = !!prefs.analytics;
       if(marketingToggle) marketingToggle.checked = !!prefs.marketing;
+      previousFocus = document.activeElement;
       modal.classList.add('is-open');
       banner.classList.remove('is-visible');
+      var first = modal.querySelector('input:not(:disabled), button');
+      if(first) first.focus();
     });
   });
   if(savePrefs) savePrefs.addEventListener('click', function(){
@@ -47,7 +56,16 @@
       ts:Date.now()
     });
   });
+  document.addEventListener('keydown', function(e){
+    if(!modal || !modal.classList.contains('is-open')) return;
+    if(e.key === 'Escape'){ closeModal(); return; }
+    if(e.key !== 'Tab') return;
+    var controls = Array.from(modal.querySelectorAll('input:not(:disabled), button:not(:disabled), a[href]'));
+    var first = controls[0], last = controls[controls.length - 1];
+    if(e.shiftKey && document.activeElement === first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey && document.activeElement === last){e.preventDefault();first.focus();}
+  });
   document.querySelectorAll('[data-cookie="close-modal"]').forEach(function(btn){
-    btn.addEventListener('click', function(){ if(modal) modal.classList.remove('is-open'); });
+    btn.addEventListener('click', closeModal);
   });
 })();

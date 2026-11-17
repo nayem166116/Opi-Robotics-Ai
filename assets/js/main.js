@@ -19,7 +19,7 @@
 
   document.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a');
-    if(!a || !isInternal(a)) return;
+    if(!a || !isInternal(a) || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.hasAttribute('download')) return;
     var url = new URL(a.getAttribute('href'), window.location.href);
     if(url.href === window.location.href) return;
     e.preventDefault();

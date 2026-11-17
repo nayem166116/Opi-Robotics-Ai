@@ -23,7 +23,7 @@
         io.unobserve(entry.target);
       }
     });
-  }, { threshold:0.18, rootMargin:'0px 0px -40px 0px' });
+  }, { threshold:0, rootMargin:'200px 0px 200px 0px' });
   els.forEach(function(el){ io.observe(el); });
 
   // Hero parallax fade/scale on scroll (max 6%), respects reduced motion
