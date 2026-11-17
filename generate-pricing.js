@@ -48,9 +48,9 @@ const sheet = `
   <p class="hint" style="margin-top:20px;">Scale is the right starting point for most multi-line facilities. Node pricing decreases at volume \u2014 talk to sales for a site-wide quote.</p>
 </section>
 
-<section class="section section--light">
+<section class="section section--light faq-section">
   <div class="section-head" data-reveal="rise"><p class="eyebrow">FREQUENTLY ASKED</p></div>
-  <div data-reveal="stagger">
+  <div class="faq-list" data-reveal="stagger">
     <div class="row-card" style="grid-template-columns:1fr;"><h3>What counts as a "node"?</h3><p style="color:var(--text-2);margin-top:8px;">A node is one monitored cell, machine, or fixed asset \u2014 not a user seat. A single line with 6 monitored stations counts as 6 nodes regardless of how many people log in.</p></div>
     <div class="row-card" style="grid-template-columns:1fr;"><h3>Do we need new sensors?</h3><p style="color:var(--text-2);margin-top:8px;">Most sites start with existing PLC tags and a light sensor add-on. A site walk during onboarding determines exactly what, if anything, needs to be added.</p></div>
     <div class="row-card" style="grid-template-columns:1fr;"><h3>Can we run this on-prem?</h3><p style="color:var(--text-2);margin-top:8px;">Yes, on Enterprise. Perception inference already runs at the edge on every plan \u2014 on-prem adds a fully local control plane for sites with strict data residency needs.</p></div>

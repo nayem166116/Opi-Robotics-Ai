@@ -38,7 +38,7 @@ const sheet = `
         <div class="skeleton" style="height:56px;margin-bottom:12px;"></div>
         <div class="skeleton" style="height:56px;"></div>
       </div>
-      <div id="roi-result" class="tool-panel" style="display:none;">
+      <div id="roi-result" class="tool-panel" style="display:none;" aria-live="polite">
         <h3 style="margin-bottom:8px;">Estimated impact</h3>
         <p class="hint" style="margin-bottom:20px;">Directional estimate based on typical recovery rates across comparable deployments.</p>
         <div class="result-line"><span>Estimated monthly savings</span><b id="res-monthly">\u2014</b></div>

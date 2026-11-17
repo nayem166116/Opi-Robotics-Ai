@@ -9,16 +9,17 @@ const hero = heroStage({
   compact: true
 });
 
-function panel(idx, title, challenge, approach, outcome, flip){
+function panel(idx, title, challenge, approach, outcome, flip, img){
   return `
-<section class="section">
+<section class="section case-section">
   <div style="display:grid;grid-template-columns:${flip?'5fr 7fr':'7fr 5fr'};gap:var(--sp-5);align-items:start;" data-reveal="rise">
     <div style="order:${flip?2:1};">
       <p class="eyebrow">${idx} \u2014 ${title}</p>
       <h2 style="margin-top:16px;">${challenge}</h2>
       <p class="lede" style="margin-top:18px;max-width:640px;">${approach}</p>
     </div>
-    <div style="order:${flip?1:2};background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--card-pad);">
+    <div class="case-outcome" style="order:${flip?1:2};background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:var(--card-pad);">
+      <figure class="case-outcome__media" aria-hidden="true"><img src="/assets/media/${img}.jpg" alt="" loading="lazy" decoding="async" width="1200" height="800"></figure>
       <span class="badge">OUTCOME</span>
       <p style="margin-top:16px;color:var(--text-1);font-size:1.2rem;line-height:1.4;">${outcome}</p>
     </div>
@@ -43,10 +44,10 @@ const p4a = "Opi Robotics\u2019s sensor-agnostic perception layer reads structur
 const p4o = "A yard operator with a 40-unit mixed fleet extended average maintenance intervals by 22% after establishing per-unit stress baselines.";
 
 const sheet = `
-${panel('01','Automotive final assembly', p1c, p1a, p1o)}
-${panel('02','Warehousing & logistics', p2c, p2a, p2o, true)}
-${panel('03','Food & beverage lines', p3c, p3a, p3o)}
-${panel('04','Heavy equipment yards', p4c, p4a, p4o, true)}
+${panel('01','Automotive final assembly', p1c, p1a, p1o, false, 'usecase-automotive')}
+${panel('02','Warehousing & logistics', p2c, p2a, p2o, true, 'usecase-warehouse')}
+${panel('03','Food & beverage lines', p3c, p3a, p3o, false, 'usecase-beverage')}
+${panel('04','Heavy equipment yards', p4c, p4a, p4o, true, 'usecase-heavy-equipment')}
 
 <section class="section" style="text-align:center;">
   <div data-reveal="rise">

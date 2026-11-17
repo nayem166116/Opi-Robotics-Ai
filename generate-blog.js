@@ -62,12 +62,19 @@ const hero = heroStage({
   compact: true
 });
 
+const BLOG_IMG = {
+  '/blog/perception-stack-industrial-robots': 'product-features-poster.jpg',
+  '/blog/roi-of-embodied-ai': 'hero-about-poster.jpg',
+  '/blog/safety-case-for-physical-ai': 'product-poster.jpg'
+};
+
 const sheet = `
-<section class="section">
+<section class="section blog-index">
   ${POSTS.map(p => `
   <a href="${p.slug}" class="blog-row" data-reveal="rise" style="display:grid;">
     <time datetime="${p.date}">${p.dateLabel}</time>
     <div><h3>${p.title}</h3><p>${p.excerpt}</p></div>
+    <figure class="blog-row__media" aria-hidden="true"><img src="/assets/media/${BLOG_IMG[p.slug]}" alt="" loading="lazy" decoding="async" width="1280" height="720"></figure>
   </a>`).join('\n')}
 </section>
 `;

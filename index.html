@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js")</script>
 <title>Opi Robotics — Physical AI for industrial automation</title>
 <meta name="description" content="Opi Robotics gives industrial robots and fixed automation a shared perception and decision layer, catching drift, wear, and risk before it becomes downtime.">
 <link rel="canonical" href="https://opirobotics.com">
@@ -20,13 +21,17 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:image" content="https://opirobotics.com/assets/brand/og-image.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="/assets/css/tokens.css">
 <link rel="stylesheet" href="/assets/css/base.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/pages.css">
 <link rel="stylesheet" href="/assets/css/media.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
+<link rel="stylesheet" href="/assets/css/refined.css">
+<link rel="stylesheet" href="/assets/css/signature.css">
+<link rel="stylesheet" href="/assets/css/polish.css">
+<link rel="stylesheet" href="/assets/css/industrial.css">
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -36,7 +41,7 @@
   <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
   <div style="display:flex;align-items:center;gap:12px;">
     <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
-    <button class="nav-trigger" type="button" aria-haspopup="true" aria-controls="nav-overlay">
+    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
     </button>
@@ -86,7 +91,7 @@
     <div class="hero-content__main">
       <div class="container">
         <p class="eyebrow">PHYSICAL AI FOR INDUSTRIAL AUTOMATION</p>
-        <h1 class="hero-heading">Machines that read the floor the way your best operator does.</h1>
+        <h1 class="hero-heading">Machines that <span class="hero-emphasis">read the floor</span> the way your best operator does.</h1>
         <p class="lede hero-lede">Opi Robotics gives robots, fixed automation, and inspection systems a shared perception and decision layer — so drift, wear, and risk get caught before they become downtime.</p>
         <div class="hero-ctas"><a href="/register" class="btn btn-primary"><span class="btn__cell">Request access</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a><a href="/features" class="btn btn-ghost">See how it works</a></div>
       </div>
@@ -105,11 +110,12 @@
 <main id="main" class="peel-sheet">
   <div class="container">
 
-<section class="section">
+<section class="section home-stack">
   <div class="section-head" data-reveal="rise">
     <p class="eyebrow">THE PERCEPTION STACK</p>
     <h2 style="margin-top:16px;">Three layers, one continuous read of the physical world.</h2>
   </div>
+  <div class="stack-grid">
   <div class="row-card" data-reveal="rise">
     <div class="row-card__idx">01</div>
     <div class="row-card__body"><h3>Perceive</h3><p>Fuse vision, vibration, thermal, and PLC signal data into a single spatial model of each machine and cell — refreshed continuously, not sampled in batches.</p></div>
@@ -123,6 +129,7 @@
     <div class="row-card__body"><h3>Act</h3><p>Recommendations route straight into your MES, CMMS, or PLC logic — or trigger a supervised stop when a safety envelope is at risk.</p></div>
   </div>
 
+  </div>
   <div style="margin-top:var(--sp-5);" data-reveal="fade">
   <div class="media-frame media-frame--wide">
   <video class="media-video" data-media="stack" data-media-slots="stack,product" autoplay muted loop playsinline preload="metadata" poster="/assets/media/stack-poster.jpg" aria-hidden="true" tabindex="-1">
@@ -148,18 +155,19 @@
   </div>
 </section>
 
-<section class="section section--light" style="text-align:center;">
+<section class="section section--light home-principle" style="text-align:center;">
   <div data-reveal="mask" style="max-width:760px;margin:0 auto;">
     <p class="eyebrow" style="justify-content:center;">A WORKING PRINCIPLE</p>
     <p class="mask-inner" style="display:block;font-size:clamp(1.4rem,1.1rem+1.6vw,2rem);line-height:1.35;margin-top:20px;color:var(--text-1);">"A machine that can't perceive its own wear can only ever be maintained on a schedule — never on reality."</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section home-sectors">
   <div class="section-head" data-reveal="rise">
     <p class="eyebrow">WHERE IT RUNS</p>
     <h2 style="margin-top:16px;">Built for the floor, not the pilot deck.</h2>
   </div>
+  <div class="sector-grid">
   <div class="row-card" data-reveal="rise">
     <div class="row-card__idx">01</div>
     <div class="row-card__body"><h3>Automotive final assembly</h3><p>Torque, alignment, and fastening cells monitored in real time, with drift flagged before it produces a defect.</p></div>
@@ -176,10 +184,11 @@
     <div class="row-card__idx">04</div>
     <div class="row-card__body"><h3>Heavy equipment yards</h3><p>Structural and hydraulic stress patterns tracked across a mixed-age fleet without retrofitting OEM sensors.</p></div>
   </div>
+  </div>
   <div style="margin-top:32px;"><a href="/use-cases" class="btn-text">See all use cases →</a></div>
 </section>
 
-<section class="section">
+<section class="section home-horizon">
   <div data-reveal="fade">
   <div class="media-frame media-frame--wide">
   <video class="media-video" data-media="horizon" data-media-slots="horizon,hero" autoplay muted loop playsinline preload="metadata" poster="/assets/media/horizon-poster.jpg" aria-hidden="true" tabindex="-1">
@@ -204,11 +213,12 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section home-deployment">
   <div class="section-head" data-reveal="rise">
     <p class="eyebrow">DEPLOYMENT</p>
     <h2 style="margin-top:16px;">Live on your floor in weeks, not quarters.</h2>
   </div>
+  <div class="deployment-grid">
   <div class="row-card" data-reveal="rise">
     <div class="row-card__idx">01</div>
     <div class="row-card__body"><h3>Instrument</h3><p>We map your existing sensors and PLC tags first — most sites need little to no new hardware to start.</p></div>
@@ -221,9 +231,10 @@
     <div class="row-card__idx">03</div>
     <div class="row-card__body"><h3>Operate</h3><p>Perception runs continuously at the edge, with a supervised rollout of automated actions once trust thresholds are met.</p></div>
   </div>
+  </div>
 </section>
 
-<section class="section section--light">
+<section class="section section--light home-tool">
   <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:var(--sp-5);align-items:center;" class="tool-teaser" data-reveal="rise">
     <div>
       <p class="eyebrow">FREE TOOL</p>
@@ -238,7 +249,7 @@
   </div>
 </section>
 
-<section class="section" style="text-align:center;">
+<section class="section home-finale" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:640px;margin:0 auto;">Ready to see your floor differently?</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;"><a href="/register" class="btn btn-primary"><span class="btn__cell">Request access</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a><a href="/contact" class="btn btn-ghost">Talk to the team</a></div>
@@ -257,8 +268,8 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-slab">OPI ROBOTICS</div>
-    <div class="footer-directory">
+    <a href="/" class="footer-slab" aria-label="Opi Robotics home">OPI ROBOTICS</a>
+    <nav class="footer-directory" aria-label="Footer navigation">
       <div class="footer-directory__row">
         <div class="footer-directory__label">Product</div>
         <div class="footer-directory__links">
@@ -284,7 +295,7 @@
           <button type="button" data-cookie="manage" style="background:none;border:0;color:var(--text-2);font-size:14.5px;cursor:pointer;padding:0;font-family:inherit;">Cookie Settings</button>
         </div>
       </div>
-    </div>
+    </nav>
     <div class="footer-bottom">
       <span>© <span data-year></span> Opi Robotics &middot; a brand of 21 Robots LLC &middot; 530-B Harkle Road, Ste 100, Santa Fe, NM 87505, USA &middot; All rights reserved.</span>
       <div class="footer-social">
@@ -304,21 +315,21 @@
     <button class="btn-text" type="button" data-cookie="manage">Manage preferences</button>
   </div>
 </div>
-<div class="cookie-modal">
+<div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
   <div class="cookie-modal__panel">
-    <h3 style="margin-bottom:8px;">Cookie preferences</h3>
+    <h3 id="cookie-modal-title" style="margin-bottom:8px;">Cookie preferences</h3>
     <p class="lede" style="margin-bottom:0;font-size:14px;">Essential cookies keep the site working and can’t be turned off. Choose whether we can use analytics or marketing cookies below.</p>
     <div class="cookie-toggle-row" style="border-top:0;">
       <div><strong>Essential</strong><div class="hint">Required for core functionality.</div></div>
-      <label class="switch"><input type="checkbox" checked disabled><span class="track"></span><span class="thumb"></span></label>
+      <label class="switch"><input type="checkbox" aria-label="Essential" checked disabled><span class="track"></span><span class="thumb"></span></label>
     </div>
     <div class="cookie-toggle-row">
       <div><strong>Analytics</strong><div class="hint">Helps us understand product usage.</div></div>
-      <label class="switch"><input type="checkbox" id="pref-analytics"><span class="track"></span><span class="thumb"></span></label>
+      <label class="switch"><input type="checkbox" id="pref-analytics" aria-label="Analytics"><span class="track"></span><span class="thumb"></span></label>
     </div>
     <div class="cookie-toggle-row">
       <div><strong>Marketing</strong><div class="hint">Used to measure campaign performance.</div></div>
-      <label class="switch"><input type="checkbox" id="pref-marketing"><span class="track"></span><span class="thumb"></span></label>
+      <label class="switch"><input type="checkbox" id="pref-marketing" aria-label="Marketing"><span class="track"></span><span class="thumb"></span></label>
     </div>
     <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
       <button class="btn btn-primary" type="button" data-cookie="save"><span class="btn__cell">Save preferences</span></button>

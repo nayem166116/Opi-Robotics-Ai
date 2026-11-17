@@ -10,14 +10,16 @@ const hero = heroStage({
 });
 
 const sheet = `
-<section class="section">
+<section class="section capabilities-section">
   <div class="section-head" data-reveal="rise"><p class="eyebrow">CORE CAPABILITIES</p></div>
+  <div class="capability-grid">
   ${rowCard('01','Perception fusion','Vision, vibration, thermal, acoustic, and existing PLC/OT tags are fused into a single, continuously updated spatial model of each cell \u2014 no separate dashboards per sensor type.')}
   ${rowCard('02','Predictive wear modeling','Component-level degradation curves trained against your own equipment\'s operating history, not a generic OEM duty cycle.')}
   ${rowCard('03','Safety envelope enforcement','Defines physical and operational limits per cell; when perception detects a boundary risk, Opi Robotics can trigger a supervised hold before a person or part is at risk.')}
   ${rowCard('04','Fleet-wide learning','Patterns learned on one line \u2014 a bearing signature, a fastening drift \u2014 propagate to comparable equipment across your other sites, with your review before rollout.')}
   ${rowCard('05','Integration layer','Native connectors for OPC-UA, Modbus TCP, PROFINET, and MQTT, plus a REST API for MES and CMMS systems you already run.')}
   ${rowCard('06','Audit & compliance trail','Every recommendation and automated action is logged with the perception evidence behind it \u2014 built for plants that answer to quality and safety audits.')}
+  </div>
 </section>
 
 <section class="section">
