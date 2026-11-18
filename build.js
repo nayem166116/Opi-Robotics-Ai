@@ -23,9 +23,13 @@ function nav(){
   return `
 <nav class="site-nav">
   ${wordmark()}
-  <div style="display:flex;align-items:center;gap:12px;">
+  <ul class="nav-links">
+    ${NAV_ITEMS.slice(1).map(i => `<li><a href="${i.href}">${i.label}</a></li>`).join('\n    ')}
+  </ul>
+  <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
     <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
-    <button class="nav-trigger" type="button" aria-haspopup="true" aria-controls="nav-overlay">
+    <a href="/register" class="nav-cta">Request access</a>
+    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
     </button>
@@ -285,7 +289,7 @@ function btnText(label, href){ return `<a href="${href}" class="btn-text">${labe
 
 function rowCard(idx, title, body, reveal){
   return `<div class="row-card" data-reveal="${reveal||'rise'}">
-    <div class="row-card__idx">${idx}</div>
+    ${idx ? `<div class="row-card__idx">${idx}</div>` : ''}
     <div class="row-card__body"><h3>${title}</h3><p>${body}</p></div>
   </div>`;
 }

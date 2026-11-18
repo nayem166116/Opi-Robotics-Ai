@@ -51,10 +51,10 @@ const sheet = `
     <h2 style="margin-top:16px;">Built for the floor, not the pilot deck.</h2>
   </div>
   <div class="sector-grid">
-  ${rowCard('01','Automotive final assembly','Torque, alignment, and fastening cells monitored in real time, with drift flagged before it produces a defect.')}
-  ${rowCard('02','Warehousing & logistics','AMR fleets and conveyor junctions get a shared spatial map, cutting collision risk and idle routing time.')}
-  ${rowCard('03','Food & beverage lines','Vibration and thermal sensing on fillers and packaging lines catches bearing wear weeks before failure.')}
-  ${rowCard('04','Heavy equipment yards','Structural and hydraulic stress patterns tracked across a mixed-age fleet without retrofitting OEM sensors.')}
+  ${rowCard('','Automotive final assembly','Torque, alignment, and fastening cells monitored in real time, with drift flagged before it produces a defect.')}
+  ${rowCard('','Warehousing & logistics','AMR fleets and conveyor junctions get a shared spatial map, cutting collision risk and idle routing time.')}
+  ${rowCard('','Food & beverage lines','Vibration and thermal sensing on fillers and packaging lines catches bearing wear weeks before failure.')}
+  ${rowCard('','Heavy equipment yards','Structural and hydraulic stress patterns tracked across a mixed-age fleet without retrofitting OEM sensors.')}
   </div>
   <div style="margin-top:32px;">${btnText('See all use cases \u2192', '/use-cases')}</div>
 </section>
@@ -100,7 +100,7 @@ const sheet = `
   </div>
 </section>
 
-<section class="section home-finale" style="text-align:center;">
+<section class="section home-finale cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:640px;margin:0 auto;">Ready to see your floor differently?</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">${btnPrimary('Request access', '/register')}${btnGhost('Talk to the team', '/contact')}</div>

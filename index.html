@@ -39,8 +39,18 @@
 
 <nav class="site-nav">
   <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
-  <div style="display:flex;align-items:center;gap:12px;">
+  <ul class="nav-links">
+    <li><a href="/features">Features</a></li>
+    <li><a href="/use-cases">Use Cases</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/tool">Free Tool</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
     <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
+    <a href="/register" class="nav-cta">Request access</a>
     <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
@@ -169,19 +179,19 @@
   </div>
   <div class="sector-grid">
   <div class="row-card" data-reveal="rise">
-    <div class="row-card__idx">01</div>
+    
     <div class="row-card__body"><h3>Automotive final assembly</h3><p>Torque, alignment, and fastening cells monitored in real time, with drift flagged before it produces a defect.</p></div>
   </div>
   <div class="row-card" data-reveal="rise">
-    <div class="row-card__idx">02</div>
+    
     <div class="row-card__body"><h3>Warehousing & logistics</h3><p>AMR fleets and conveyor junctions get a shared spatial map, cutting collision risk and idle routing time.</p></div>
   </div>
   <div class="row-card" data-reveal="rise">
-    <div class="row-card__idx">03</div>
+    
     <div class="row-card__body"><h3>Food & beverage lines</h3><p>Vibration and thermal sensing on fillers and packaging lines catches bearing wear weeks before failure.</p></div>
   </div>
   <div class="row-card" data-reveal="rise">
-    <div class="row-card__idx">04</div>
+    
     <div class="row-card__body"><h3>Heavy equipment yards</h3><p>Structural and hydraulic stress patterns tracked across a mixed-age fleet without retrofitting OEM sensors.</p></div>
   </div>
   </div>
@@ -249,7 +259,7 @@
   </div>
 </section>
 
-<section class="section home-finale" style="text-align:center;">
+<section class="section home-finale cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:640px;margin:0 auto;">Ready to see your floor differently?</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;"><a href="/register" class="btn btn-primary"><span class="btn__cell">Request access</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a><a href="/contact" class="btn btn-ghost">Talk to the team</a></div>

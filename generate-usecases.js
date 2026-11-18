@@ -49,7 +49,7 @@ ${panel('02','Warehousing & logistics', p2c, p2a, p2o, true, 'usecase-warehouse'
 ${panel('03','Food & beverage lines', p3c, p3a, p3o, false, 'usecase-beverage')}
 ${panel('04','Heavy equipment yards', p4c, p4a, p4o, true, 'usecase-heavy-equipment')}
 
-<section class="section" style="text-align:center;">
+<section class="section cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:600px;margin:0 auto;">Don\u2019t see your line above? Most deployments start with one cell.</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">${btnPrimary('Request access', '/register')}${btnGhost('Talk to the team', '/contact')}</div>

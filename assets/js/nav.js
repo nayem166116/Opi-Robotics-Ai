@@ -57,13 +57,18 @@
       if(link) closeMenu();
     });
   }
+  document.addEventListener('click', function(e){
+    if(!overlay || !overlay.classList.contains('is-open')) return;
+    if(overlay.contains(e.target) || (trigger && trigger.contains(e.target))) return;
+    closeMenu();
+  });
   window.addEventListener('pageshow', function(){
     if(overlay && overlay.classList.contains('is-open')) closeMenu();
   });
 
   // Active link
   var path = window.location.pathname.replace(/\/index\.html$/,'/').replace(/\/$/,'') || '/';
-  document.querySelectorAll('.nav-index a, .footer-directory a').forEach(function(a){
+  document.querySelectorAll('.nav-index a, .nav-links a, .footer-directory a').forEach(function(a){
     var href = a.getAttribute('href');
     if(!href) return;
     var clean = href.replace(/\/$/,'') || '/';

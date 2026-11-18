@@ -9,16 +9,23 @@ const hero = heroStage({
   compact: true
 });
 
+function capCard(icon, title, body){
+  return `<div class="row-card" data-reveal="rise">
+    <div class="row-card__icon"><img src="/assets/icons/cap-${icon}.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
+    <div class="row-card__body"><h3>${title}</h3><p>${body}</p></div>
+  </div>`;
+}
+
 const sheet = `
 <section class="section capabilities-section">
   <div class="section-head" data-reveal="rise"><p class="eyebrow">CORE CAPABILITIES</p></div>
   <div class="capability-grid">
-  ${rowCard('01','Perception fusion','Vision, vibration, thermal, acoustic, and existing PLC/OT tags are fused into a single, continuously updated spatial model of each cell \u2014 no separate dashboards per sensor type.')}
-  ${rowCard('02','Predictive wear modeling','Component-level degradation curves trained against your own equipment\'s operating history, not a generic OEM duty cycle.')}
-  ${rowCard('03','Safety envelope enforcement','Defines physical and operational limits per cell; when perception detects a boundary risk, Opi Robotics can trigger a supervised hold before a person or part is at risk.')}
-  ${rowCard('04','Fleet-wide learning','Patterns learned on one line \u2014 a bearing signature, a fastening drift \u2014 propagate to comparable equipment across your other sites, with your review before rollout.')}
-  ${rowCard('05','Integration layer','Native connectors for OPC-UA, Modbus TCP, PROFINET, and MQTT, plus a REST API for MES and CMMS systems you already run.')}
-  ${rowCard('06','Audit & compliance trail','Every recommendation and automated action is logged with the perception evidence behind it \u2014 built for plants that answer to quality and safety audits.')}
+  ${capCard('perception','Perception fusion','Vision, vibration, thermal, acoustic, and existing PLC/OT tags are fused into a single, continuously updated spatial model of each cell \u2014 no separate dashboards per sensor type.')}
+  ${capCard('wear','Predictive wear modeling','Component-level degradation curves trained against your own equipment\'s operating history, not a generic OEM duty cycle.')}
+  ${capCard('safety','Safety envelope enforcement','Defines physical and operational limits per cell; when perception detects a boundary risk, Opi Robotics can trigger a supervised hold before a person or part is at risk.')}
+  ${capCard('fleet','Fleet-wide learning','Patterns learned on one line \u2014 a bearing signature, a fastening drift \u2014 propagate to comparable equipment across your other sites, with your review before rollout.')}
+  ${capCard('integration','Integration layer','Native connectors for OPC-UA, Modbus TCP, PROFINET, and MQTT, plus a REST API for MES and CMMS systems you already run.')}
+  ${capCard('audit','Audit & compliance trail','Every recommendation and automated action is logged with the perception evidence behind it \u2014 built for plants that answer to quality and safety audits.')}
   </div>
 </section>
 
@@ -40,7 +47,7 @@ const sheet = `
     <p class="eyebrow">UNDER THE HOOD</p>
     <h2 style="margin-top:16px;">Runs at the edge. Reports to the cloud.</h2>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;" data-reveal="stagger">
+  <div class="spec-strip" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;" data-reveal="stagger">
     <div style="background:var(--surface);padding:24px;"><span class="badge">LATENCY</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">&lt; 40ms</p><p class="hint" style="margin-top:6px;">Edge inference, per frame</p></div>
     <div style="background:var(--surface);padding:24px;"><span class="badge">DEPLOYMENT</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">Cloud, on-prem, or hybrid</p><p class="hint" style="margin-top:6px;">No forced data egress</p></div>
     <div style="background:var(--surface);padding:24px;"><span class="badge">PROTOCOLS</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">OPC-UA \u00b7 Modbus \u00b7 PROFINET</p><p class="hint" style="margin-top:6px;">Plus MQTT and REST</p></div>
@@ -48,7 +55,7 @@ const sheet = `
   </div>
 </section>
 
-<section class="section" style="text-align:center;">
+<section class="section cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:600px;margin:0 auto;">See which capabilities fit your line first.</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">${btnPrimary('Request access', '/register')}${btnGhost('View pricing', '/pricing')}</div>

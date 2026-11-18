@@ -62,7 +62,7 @@ const aboutSheet = `
   </div>
 </section>
 
-<section class="section" style="text-align:center;">
+<section class="section cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:600px;margin:0 auto;">Want to see it on your floor?</h2>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">${btnPrimary('Request access', '/register')}${btnGhost('Contact us', '/contact')}</div>
@@ -148,7 +148,7 @@ const contactSheet = `
   </div>
 </section>
 
-<section class="section section--light" style="text-align:center;">
+<section class="section section--light cta-band" style="text-align:center;">
   <div data-reveal="rise">
     <h2 style="max-width:560px;margin:0 auto;">Ready to start without waiting for a call back?</h2>
     <div style="margin-top:28px;">${btnPrimary('Request access', '/register')}</div>
