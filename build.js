@@ -248,6 +248,29 @@ function finale(text, eyebrow){
 </div>`;
 }
 
+
+const LABEL_ICONS = {
+  'OPI ROBOTICS':'robot','PHYSICAL AI FOR INDUSTRIAL AUTOMATION':'robot','THE PRODUCT':'robot',
+  'THE PERCEPTION STACK':'eye','THE STACK, RUNNING':'pulse','A WORKING PRINCIPLE':'ruler','WHERE IT RUNS':'globe',
+  'THE HORIZON LINE':'horizon','DEPLOYMENT':'deploy','FREE TOOL':'calc','YOUR NUMBERS, NOT OURS':'gauge',
+  'FEATURES':'sliders','CORE CAPABILITIES':'cube','UNDER THE HOOD':'gear','BUILT AS ONE STACK':'layers',
+  'USE CASES':'factory','FOUR VERTICALS, ONE STACK':'layers','01 \u2014 Automotive final assembly':'car',
+  '02 \u2014 Warehousing & logistics':'boxes','03 \u2014 Food & beverage lines':'bottle','04 \u2014 Heavy equipment yards':'hook',
+  'PRICING':'tag','NODE-BASED PRICING':'tag','FREQUENTLY ASKED':'chat',
+  'BLOG':'doc','NOTES FROM THE FLOOR':'clipboard','OPI ROBOTICS BLOG':'doc',
+  'ABOUT':'building','WHY WE EXIST':'target','HOW WE WORK':'wrench','WHERE WE\'RE HEADED':'compass',
+  'OWNERSHIP &amp; STRUCTURE':'org','COMPANY DETAILS':'idcard','CONTACT':'mail','OFFICE':'pin',
+  'LOGIN':'key','WELCOME BACK':'key','REGISTER':'userplus','REQUEST ACCESS':'badge','VERIFY':'shield',
+  'ALMOST THERE':'mailcheck','ACCOUNT RECOVERY':'lock','LEGAL':'scale','404':'cone'
+};
+function labelIcons(html){
+  return html.replace(/<p class="eyebrow"([^>]*)>([^<]*)<\/p>/g, (m, attrs, text) => {
+    if (/data-icon=/.test(attrs)) return m;
+    const icon = LABEL_ICONS[text.trim()] || (/^BLOG \u00b7 /.test(text.trim()) ? 'calendar' : null);
+    return icon ? `<p class="eyebrow" data-icon="${icon}"${attrs}>${text}</p>` : m;
+  });
+}
+
 function page({ slug, title, description, hero, sheet, finaleText, finaleEyebrow, extraScripts, bodyAttrs }){
   const html = `<!doctype html>
 <html lang="en">
@@ -272,7 +295,7 @@ ${scripts(extraScripts)}
 </html>`;
   const outDir = slug === '/' ? ROOT : path.join(ROOT, slug.replace(/^\//,''));
   fs.mkdirSync(outDir, { recursive:true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(path.join(outDir, 'index.html'), labelIcons(html));
   console.log('wrote', slug);
 }
 
@@ -289,4 +312,4 @@ function rowCard(idx, title, body, reveal){
   </div>`;
 }
 
-module.exports = { NAV_ITEMS, nav, footer, cookieUI, headTags, scripts, heroStage, finale, page, btnPrimary, btnGhost, btnText, rowCard, videoLayer, mediaVideo };
+module.exports = { labelIcons, NAV_ITEMS, nav, footer, cookieUI, headTags, scripts, heroStage, finale, page, btnPrimary, btnGhost, btnText, rowCard, videoLayer, mediaVideo };

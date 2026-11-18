@@ -33,5 +33,5 @@ ${scripts()}
 </body>
 </html>`;
 
-fs.writeFileSync(path.join(__dirname, '404.html'), html);
+fs.writeFileSync(path.join(__dirname, '404.html'), require('./build').labelIcons(html));
 console.log('wrote 404.html');

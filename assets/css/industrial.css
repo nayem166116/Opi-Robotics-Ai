@@ -580,3 +580,51 @@ main .btn-text:not(.home-sectors .btn-text)::after{bottom:-1px;background:var(--
 @media(prefers-reduced-motion:reduce){.home-deployment .deployment-grid .row-card::after{transition:none}}
 .home-deployment .deployment-grid .row-card{align-items:stretch}
 @media(max-width:899px){.home-deployment .deployment-grid .row-card,.home-deployment .deployment-grid .row-card + .row-card{align-items:start}.home-deployment .deployment-grid .row-card__body{padding-top:10px}}
+
+/* ---------- Section labels: isometric module mark ---------- */
+.eyebrow{gap:10px}
+.eyebrow::before{width:18px;height:18px;background:url(../icons/label-mark.svg) center/contain no-repeat;border:0;border-radius:0;box-shadow:none;flex:none;transform:translateY(-1px)}
+#roi-placeholder::before{width:22px;height:22px;background:url(../icons/label-mark.svg) center/contain no-repeat}
+
+/* ---------- Section labels: meaning-specific icons ---------- */
+.eyebrow[data-icon]::before{width:20px;height:20px;background:center/contain no-repeat;transform:none}
+.eyebrow[data-icon="badge"]::before{background-image:url(../icons/label/badge.svg)}
+.eyebrow[data-icon="bottle"]::before{background-image:url(../icons/label/bottle.svg)}
+.eyebrow[data-icon="boxes"]::before{background-image:url(../icons/label/boxes.svg)}
+.eyebrow[data-icon="building"]::before{background-image:url(../icons/label/building.svg)}
+.eyebrow[data-icon="calc"]::before{background-image:url(../icons/label/calc.svg)}
+.eyebrow[data-icon="calendar"]::before{background-image:url(../icons/label/calendar.svg)}
+.eyebrow[data-icon="car"]::before{background-image:url(../icons/label/car.svg)}
+.eyebrow[data-icon="chat"]::before{background-image:url(../icons/label/chat.svg)}
+.eyebrow[data-icon="chip"]::before{background-image:url(../icons/label/chip.svg)}
+.eyebrow[data-icon="clipboard"]::before{background-image:url(../icons/label/clipboard.svg)}
+.eyebrow[data-icon="compass"]::before{background-image:url(../icons/label/compass.svg)}
+.eyebrow[data-icon="cone"]::before{background-image:url(../icons/label/cone.svg)}
+.eyebrow[data-icon="cube"]::before{background-image:url(../icons/label/cube.svg)}
+.eyebrow[data-icon="deploy"]::before{background-image:url(../icons/label/deploy.svg)}
+.eyebrow[data-icon="doc"]::before{background-image:url(../icons/label/doc.svg)}
+.eyebrow[data-icon="eye"]::before{background-image:url(../icons/label/eye.svg)}
+.eyebrow[data-icon="factory"]::before{background-image:url(../icons/label/factory.svg)}
+.eyebrow[data-icon="gauge"]::before{background-image:url(../icons/label/gauge.svg)}
+.eyebrow[data-icon="gear"]::before{background-image:url(../icons/label/gear.svg)}
+.eyebrow[data-icon="globe"]::before{background-image:url(../icons/label/globe.svg)}
+.eyebrow[data-icon="hook"]::before{background-image:url(../icons/label/hook.svg)}
+.eyebrow[data-icon="horizon"]::before{background-image:url(../icons/label/horizon.svg)}
+.eyebrow[data-icon="idcard"]::before{background-image:url(../icons/label/idcard.svg)}
+.eyebrow[data-icon="key"]::before{background-image:url(../icons/label/key.svg)}
+.eyebrow[data-icon="layers"]::before{background-image:url(../icons/label/layers.svg)}
+.eyebrow[data-icon="lock"]::before{background-image:url(../icons/label/lock.svg)}
+.eyebrow[data-icon="mail"]::before{background-image:url(../icons/label/mail.svg)}
+.eyebrow[data-icon="mailcheck"]::before{background-image:url(../icons/label/mailcheck.svg)}
+.eyebrow[data-icon="org"]::before{background-image:url(../icons/label/org.svg)}
+.eyebrow[data-icon="pin"]::before{background-image:url(../icons/label/pin.svg)}
+.eyebrow[data-icon="pulse"]::before{background-image:url(../icons/label/pulse.svg)}
+.eyebrow[data-icon="robot"]::before{background-image:url(../icons/label/robot.svg)}
+.eyebrow[data-icon="ruler"]::before{background-image:url(../icons/label/ruler.svg)}
+.eyebrow[data-icon="scale"]::before{background-image:url(../icons/label/scale.svg)}
+.eyebrow[data-icon="shield"]::before{background-image:url(../icons/label/shield.svg)}
+.eyebrow[data-icon="sliders"]::before{background-image:url(../icons/label/sliders.svg)}
+.eyebrow[data-icon="tag"]::before{background-image:url(../icons/label/tag.svg)}
+.eyebrow[data-icon="target"]::before{background-image:url(../icons/label/target.svg)}
+.eyebrow[data-icon="userplus"]::before{background-image:url(../icons/label/userplus.svg)}
+.eyebrow[data-icon="wrench"]::before{background-image:url(../icons/label/wrench.svg)}
