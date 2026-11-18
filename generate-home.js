@@ -80,7 +80,7 @@ const sheet = `
   </div>
   <div class="deployment-grid">
   ${rowCard('01','Instrument','We map your existing sensors and PLC tags first \u2014 most sites need little to no new hardware to start.')}
-  ${rowCard('02','Calibrate','Models are trained against your equipment\\'s own baseline for 2\u20134 weeks before any recommendation goes live.')}
+  ${rowCard('02','Calibrate','Models are trained against your equipment\'s own baseline for 2\u20134 weeks before any recommendation goes live.')}
   ${rowCard('03','Operate','Perception runs continuously at the edge, with a supervised rollout of automated actions once trust thresholds are met.')}
   </div>
 </section>

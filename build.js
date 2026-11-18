@@ -28,6 +28,7 @@ function nav(){
   </ul>
   <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
     <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
+    <a href="/register" class="nav-cta">Request access</a>
     <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
