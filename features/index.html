@@ -28,30 +28,25 @@
 <link rel="stylesheet" href="/assets/css/pages.css">
 <link rel="stylesheet" href="/assets/css/media.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
-<link rel="stylesheet" href="/assets/css/refined.css">
-<link rel="stylesheet" href="/assets/css/signature.css">
-<link rel="stylesheet" href="/assets/css/polish.css">
-<link rel="stylesheet" href="/assets/css/industrial.css">
+<link rel="preload" href="/assets/fonts/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/generalist.css">
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
 <div class="route-progress"></div>
 
-<nav class="site-nav">
-  <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo-mono.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
   <ul class="nav-links">
+    <li><a href="/">Home</a></li>
     <li><a href="/features">Features</a></li>
     <li><a href="/use-cases">Use Cases</a></li>
-    <li><a href="/pricing">Pricing</a></li>
-    <li><a href="/tool">Free Tool</a></li>
     <li><a href="/blog">Blog</a></li>
     <li><a href="/about">About</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
-  <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
-    <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
-    <a href="/register" class="nav-cta">Request access</a>
-    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
+  <div class="nav-actions">
+    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay" aria-label="Menu">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
     </button>
@@ -59,7 +54,7 @@
 </nav>
 <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
   <div class="nav-overlay__top">
-    <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
+    <a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo-mono.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>
     <button class="nav-close" type="button" aria-label="Close menu"></button>
   </div>
   <div class="nav-overlay__panel">
@@ -67,130 +62,139 @@
       <li><a href="/"><span class="idx">01</span><span class="nav-index__text"><span class="nav-index__label">Home</span><span class="nav-index__desc">The perception stack, end to end</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
       <li><a href="/features"><span class="idx">02</span><span class="nav-index__text"><span class="nav-index__label">Features</span><span class="nav-index__desc">Perceive, predict, act</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
       <li><a href="/use-cases"><span class="idx">03</span><span class="nav-index__text"><span class="nav-index__label">Use Cases</span><span class="nav-index__desc">Where it runs on the floor</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
-      <li><a href="/pricing"><span class="idx">04</span><span class="nav-index__text"><span class="nav-index__label">Pricing</span><span class="nav-index__desc">Plans and deployment tiers</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
-      <li><a href="/tool"><span class="idx">05</span><span class="nav-index__text"><span class="nav-index__label">Free Tool</span><span class="nav-index__desc">Estimate your downtime cost</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
-      <li><a href="/blog"><span class="idx">06</span><span class="nav-index__text"><span class="nav-index__label">Blog</span><span class="nav-index__desc">Notes on physical AI</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
-      <li><a href="/about"><span class="idx">07</span><span class="nav-index__text"><span class="nav-index__label">About</span><span class="nav-index__desc">The team and the thesis</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
-      <li><a href="/contact"><span class="idx">08</span><span class="nav-index__text"><span class="nav-index__label">Contact</span><span class="nav-index__desc">Talk to an engineer</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
+      <li><a href="/blog"><span class="idx">04</span><span class="nav-index__text"><span class="nav-index__label">Blog</span><span class="nav-index__desc">Notes on physical AI</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
+      <li><a href="/about"><span class="idx">05</span><span class="nav-index__text"><span class="nav-index__label">About</span><span class="nav-index__desc">The team and the thesis</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
+      <li><a href="/contact"><span class="idx">06</span><span class="nav-index__text"><span class="nav-index__label">Contact</span><span class="nav-index__desc">Talk to an engineer</span></span><span class="nav-index__arrow" aria-hidden="true"></span></a></li>
     </ul>
   </div>
   <div class="nav-overlay__foot">
-    <a href="/login">Sign in</a>
-    <a href="/register">Request access</a>
     <a href="mailto:hello@opirobotics.com" class="nav-foot__spacer">hello@opirobotics.com</a>
   </div>
 </div>
 
-<div class="hero-stage hero-stage--compact">
-  <div class="starfield" aria-hidden="true"></div>
-  <video class="hero-video" data-media="hero-features" data-media-slots="hero-features,hero" autoplay muted loop playsinline preload="metadata" poster="/assets/media/hero-features-poster.jpg" aria-hidden="true" tabindex="-1">
+<header class="hero-stage hero-stage--compact">
+  <div class="hero-content">
+    <div class="hero-content__main">
+      <p class="eyebrow" data-icon="sliders">FEATURES</p>
+      <h1 class="hero-heading">Every layer between raw sensor data and a safe decision.</h1>
+      <p class="lede hero-lede">Opi Robotics is built as one continuous stack — not a dashboard bolted onto someone else's sensors.</p>
+      <div class="hero-ctas"><a href="/contact" class="btn btn-primary"><span class="btn__cell">Contact us</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a></div>
+    </div>
+  </div>
+  <div class="hero-feature">
+    <video class="hero-video" data-media="hero-features" data-media-slots="hero-features,hero" autoplay muted loop playsinline preload="metadata" poster="/assets/media/hero-features-poster.jpg" aria-hidden="true" tabindex="-1">
     <source src="/assets/media/hero-features.mp4" type="video/mp4">
     <source src="/assets/media/hero.mp4" type="video/mp4">
   </video>
-  <div class="hero-scrim" aria-hidden="true"></div>
-  <div class="horizon-line" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-content__main">
-      <div class="container">
-        <p class="eyebrow" data-icon="sliders">FEATURES</p>
-        <h1 class="hero-heading">Every layer between raw sensor data and a safe decision.</h1>
-        <p class="lede hero-lede">Opi Robotics is built as one continuous stack — not a dashboard bolted onto someone else's sensors.</p>
-        <div class="hero-ctas"><a href="/register" class="btn btn-primary"><span class="btn__cell">Request access</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a></div>
-      </div>
-    </div>
-    
+    <button class="hero-pause" type="button" aria-label="Pause video"></button>
   </div>
-</div>
-<div class="hero-spacer hero-spacer--sm"></div>
+</header>
+
 <main id="main" class="peel-sheet">
   <div class="container">
 
-<section class="section capabilities-section">
+<section class="section capabilities-section caps" data-caps>
   <div class="section-head" data-reveal="rise"><p class="eyebrow" data-icon="cube">CORE CAPABILITIES</p></div>
-  <div class="capability-grid">
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-perception.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Perception fusion</h3><p>Vision, vibration, thermal, acoustic, and existing PLC/OT tags are fused into a single, continuously updated spatial model of each cell — no separate dashboards per sensor type.</p></div>
-  </div>
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-wear.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Predictive wear modeling</h3><p>Component-level degradation curves trained against your own equipment's operating history, not a generic OEM duty cycle.</p></div>
-  </div>
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-safety.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Safety envelope enforcement</h3><p>Defines physical and operational limits per cell; when perception detects a boundary risk, Opi Robotics can trigger a supervised hold before a person or part is at risk.</p></div>
-  </div>
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-fleet.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Fleet-wide learning</h3><p>Patterns learned on one line — a bearing signature, a fastening drift — propagate to comparable equipment across your other sites, with your review before rollout.</p></div>
-  </div>
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-integration.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Integration layer</h3><p>Native connectors for OPC-UA, Modbus TCP, PROFINET, and MQTT, plus a REST API for MES and CMMS systems you already run.</p></div>
-  </div>
-  <div class="row-card" data-reveal="rise">
-    <div class="row-card__icon"><img src="/assets/icons/cap-audit.svg" alt="" width="72" height="72" loading="lazy" decoding="async"></div>
-    <div class="row-card__body"><h3>Audit & compliance trail</h3><p>Every recommendation and automated action is logged with the perception evidence behind it — built for plants that answer to quality and safety audits.</p></div>
-  </div>
+  <div class="caps__layout" data-reveal="rise">
+    <ol class="caps__list" role="tablist" aria-label="Core capabilities">
+    <li><button type="button" class="caps__item is-active" role="tab" aria-selected="true" aria-controls="cap-media-0" data-cap="0">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Perception fusion</span>
+      <span class="caps__body"><span>Vision, vibration, thermal, acoustic, and existing PLC/OT tags are fused into a single, continuously updated spatial model of each cell — no separate dashboards per sensor type.</span></span>
+    </button></li>
+    <li><button type="button" class="caps__item" role="tab" aria-selected="false" aria-controls="cap-media-1" data-cap="1">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Predictive wear modeling</span>
+      <span class="caps__body"><span>Component-level degradation curves trained against your own equipment's operating history, not a generic OEM duty cycle.</span></span>
+    </button></li>
+    <li><button type="button" class="caps__item" role="tab" aria-selected="false" aria-controls="cap-media-2" data-cap="2">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Safety envelope enforcement</span>
+      <span class="caps__body"><span>Defines physical and operational limits per cell; when perception detects a boundary risk, Opi Robotics can trigger a supervised hold before a person or part is at risk.</span></span>
+    </button></li>
+    <li><button type="button" class="caps__item" role="tab" aria-selected="false" aria-controls="cap-media-3" data-cap="3">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Fleet-wide learning</span>
+      <span class="caps__body"><span>Patterns learned on one line — a bearing signature, a fastening drift — propagate to comparable equipment across your other sites, with your review before rollout.</span></span>
+    </button></li>
+    <li><button type="button" class="caps__item" role="tab" aria-selected="false" aria-controls="cap-media-4" data-cap="4">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Integration layer</span>
+      <span class="caps__body"><span>Native connectors for OPC-UA, Modbus TCP, PROFINET, and MQTT, plus a REST API for MES and CMMS systems you already run.</span></span>
+    </button></li>
+    <li><button type="button" class="caps__item" role="tab" aria-selected="false" aria-controls="cap-media-5" data-cap="5">
+      <span class="caps__bar" aria-hidden="true"><span></span></span>
+      <span class="caps__title">Audit & compliance trail</span>
+      <span class="caps__body"><span>Every recommendation and automated action is logged with the perception evidence behind it — built for plants that answer to quality and safety audits.</span></span>
+    </button></li>
+    </ol>
+    <div class="caps__stage">
+    <figure class="caps__media is-active" id="cap-media-0" role="tabpanel" aria-label="Perception fusion">
+      <video class="caps__video" muted loop playsinline preload="metadata" poster="/assets/media/product-features-poster.jpg"><source src="/assets/media/product-features.mp4" type="video/mp4"></video>
+      <figcaption class="caps__caption">Perception fusion</figcaption>
+    </figure>
+    <figure class="caps__media" id="cap-media-1" role="tabpanel" aria-label="Predictive wear modeling">
+      <img src="/assets/media/photo-cnc.jpg" alt="" loading="lazy" decoding="async">
+      <figcaption class="caps__caption">Predictive wear modeling</figcaption>
+    </figure>
+    <figure class="caps__media" id="cap-media-2" role="tabpanel" aria-label="Safety envelope enforcement">
+      <img src="/assets/media/photo-welding-cell.jpg" alt="" loading="lazy" decoding="async">
+      <figcaption class="caps__caption">Safety envelope enforcement</figcaption>
+    </figure>
+    <figure class="caps__media" id="cap-media-3" role="tabpanel" aria-label="Fleet-wide learning">
+      <img src="/assets/media/photo-palletizer.jpg" alt="" loading="lazy" decoding="async">
+      <figcaption class="caps__caption">Fleet-wide learning</figcaption>
+    </figure>
+    <figure class="caps__media" id="cap-media-4" role="tabpanel" aria-label="Integration layer">
+      <img src="/assets/media/photo-robot-lab.jpg" alt="" loading="lazy" decoding="async">
+      <figcaption class="caps__caption">Integration layer</figcaption>
+    </figure>
+    <figure class="caps__media" id="cap-media-5" role="tabpanel" aria-label="Audit & compliance trail">
+      <img src="/assets/media/photo-control-room.jpg" alt="" loading="lazy" decoding="async">
+      <figcaption class="caps__caption">Audit & compliance trail</figcaption>
+    </figure>
+    </div>
   </div>
 </section>
 
-<section class="section">
-  <div data-reveal="fade">
-  <div class="media-frame media-frame--wide">
-  <video class="media-video" data-media="product-features" data-media-slots="product-features,product" autoplay muted loop playsinline preload="metadata" poster="/assets/media/product-features-poster.jpg" aria-hidden="true" tabindex="-1">
-    <source src="/assets/media/product-features.mp4" type="video/mp4">
-    <source src="/assets/media/product.mp4" type="video/mp4">
-  </video>
-  <div class="media-frame__scrim" aria-hidden="true"></div>
-  <div class="media-frame__body">
-    <p class="eyebrow" data-icon="robot">THE PRODUCT</p>
-    <h3 style="margin-top:14px;font-size:clamp(1.5rem,1.2rem + 1.2vw,2.1rem);max-width:620px;">See the floor the way Opi Robotics sees it.</h3>
-    <p class="lede" style="max-width:560px;">Every cell, asset, and decision surfaced in one live spatial view — built for operators, not dashboards.</p>
-  </div>
-</div>
-<p class="media-caption">Continuous tracking of parts, tooling, and people inside a single work envelope.</p>
-  </div>
-</section>
-
-<section class="section section--light">
-  <div class="section-head" data-reveal="rise">
-    <p class="eyebrow" data-icon="gear">UNDER THE HOOD</p>
-    <h2 style="margin-top:16px;">Runs at the edge. Reports to the cloud.</h2>
-  </div>
-  <div class="spec-strip" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;" data-reveal="stagger">
-    <div style="background:var(--surface);padding:24px;"><span class="badge">LATENCY</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">&lt; 40ms</p><p class="hint" style="margin-top:6px;">Edge inference, per frame</p></div>
-    <div style="background:var(--surface);padding:24px;"><span class="badge">DEPLOYMENT</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">Cloud, on-prem, or hybrid</p><p class="hint" style="margin-top:6px;">No forced data egress</p></div>
-    <div style="background:var(--surface);padding:24px;"><span class="badge">PROTOCOLS</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">OPC-UA · Modbus · PROFINET</p><p class="hint" style="margin-top:6px;">Plus MQTT and REST</p></div>
-    <div style="background:var(--surface);padding:24px;"><span class="badge">RETENTION</span><p style="margin-top:14px;color:var(--text-1);font-size:1.1rem;">Configurable, 30–365 days</p><p class="hint" style="margin-top:6px;">Sensor + decision logs</p></div>
-  </div>
-</section>
-
-<section class="section cta-band" style="text-align:center;">
-  <div data-reveal="rise">
-    <h2 style="max-width:600px;margin:0 auto;">See which capabilities fit your line first.</h2>
-    <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;"><a href="/register" class="btn btn-primary"><span class="btn__cell">Request access</span><span class="btn__cell"><i class="fa-solid fa-arrow-right"></i></span></a><a href="/pricing" class="btn btn-ghost">View pricing</a></div>
-  </div>
-</section>
 
   </div>
 </main>
 
 <div class="finale">
-  <div>
-    <p class="eyebrow" data-icon="layers">BUILT AS ONE STACK</p>
-    <p>Not a dashboard. A nervous system for the floor.</p>
+  <div class="finale__inner">
+    <div class="finale__copy">
+      <p class="eyebrow" data-icon="layers">BUILT AS ONE STACK</p>
+      <p>Not a dashboard. A nervous system for the floor.</p>
+      <p class="finale__sub">Perception, prediction, and safety run as one continuous stack, from raw sensor data to a safe decision.</p>
+    </div>
+    <div class="finale__marquee" aria-hidden="true">
+      <div class="finale__col finale__col--up"><div class="finale__track"><img class="finale__tile" src="/assets/media/photo-forklift.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-body-shop.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-chassis-line.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-press-line.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-forklift.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-body-shop.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-chassis-line.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-press-line.jpg" alt="" decoding="async"></div></div>
+      <div class="finale__col finale__col--down"><div class="finale__track"><img class="finale__tile" src="/assets/media/photo-produce-dock.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-excavator.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-robot-arm.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-cnc.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-produce-dock.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-excavator.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-robot-arm.jpg" alt="" decoding="async"><img class="finale__tile" src="/assets/media/photo-cnc.jpg" alt="" decoding="async"></div></div>
+    </div>
   </div>
 </div>
 
 <footer class="site-footer">
+  <svg class="footer-trace footer-trace--edge" viewBox="0 0 260 520" aria-hidden="true" focusable="false">
+    <path class="footer-trace__rail" pathLength="1000" d="M10 -10L118 104C134 121 156 132 180 136C214 142 236 170 236 204V540"/>
+    <path class="footer-trace__run footer-trace__run--late" pathLength="1000" d="M10 -10L118 104C134 121 156 132 180 136C214 142 236 170 236 204V540"/>
+    <circle class="footer-trace__joint" cx="118" cy="104" r="6"/>
+    <circle class="footer-trace__joint" cx="236" cy="204" r="9"/>
+  </svg>
   <div class="container">
-    <a href="/" class="footer-slab" aria-label="Opi Robotics home">OPI ROBOTICS</a>
+    <a href="/" class="footer-slab" aria-label="Opi Robotics home"><img src="/assets/brand/logo.svg" alt="Opi Robotics" width="204" height="60" loading="lazy"></a>
     <nav class="footer-directory" aria-label="Footer navigation">
+      <svg class="footer-trace footer-trace--mid" viewBox="0 0 160 320" aria-hidden="true" focusable="false">
+        <path class="footer-trace__rail" pathLength="1000" d="M40 -10V96C40 124 56 142 84 152L104 159C130 168 138 194 128 218L98 290"/>
+        <path class="footer-trace__run" pathLength="1000" d="M40 -10V96C40 124 56 142 84 152L104 159C130 168 138 194 128 218L98 290"/>
+        <circle class="footer-trace__joint" cx="40" cy="96" r="5"/>
+        <circle class="footer-trace__joint" cx="98" cy="290" r="8"/>
+      </svg>
       <div class="footer-directory__row">
         <div class="footer-directory__label">Product</div>
         <div class="footer-directory__links">
-          <a href="/features">Features</a><a href="/use-cases">Use cases</a><a href="/pricing">Pricing</a><a href="/tool">Free tool</a>
+          <a href="/features">Features</a><a href="/use-cases">Use cases</a>
         </div>
       </div>
       <div class="footer-directory__row">
@@ -200,16 +204,10 @@
         </div>
       </div>
       <div class="footer-directory__row">
-        <div class="footer-directory__label">Account</div>
-        <div class="footer-directory__links">
-          <a href="/login">Sign in</a><a href="/register">Request access</a>
-        </div>
-      </div>
-      <div class="footer-directory__row">
         <div class="footer-directory__label">Legal</div>
         <div class="footer-directory__links">
           <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a>
-          <button type="button" data-cookie="manage" style="background:none;border:0;color:var(--text-2);font-size:14.5px;cursor:pointer;padding:0;font-family:inherit;">Cookie Settings</button>
+          <button type="button" data-cookie="manage" style="background:none;border:0;cursor:pointer;padding:0;font-family:inherit;">Cookie Settings</button>
         </div>
       </div>
     </nav>
@@ -260,7 +258,6 @@
 <script src="/assets/js/cookie-consent.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/media.js"></script>
-<script src="/assets/js/hero-reveal.js"></script>
-
+<script src="/assets/js/caps.js"></script>
 </body>
 </html>

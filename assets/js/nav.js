@@ -12,7 +12,17 @@
     if(!nav) return;
     var solid = window.scrollY > (window.innerHeight * 0.7);
     nav.classList.toggle('is-solid', solid);
+    var mini = desk.matches && window.scrollY > 80;
+    nav.classList.toggle('is-mini', mini);
+    if(!mini) setPeek(false);
   }
+  var desk = window.matchMedia('(min-width:1100px)');
+  function setPeek(on){
+    if(!nav) return;
+    nav.classList.toggle('is-peek', on);
+    if(trigger && nav.classList.contains('is-mini')) trigger.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  if(desk.addEventListener) desk.addEventListener('change', onScroll);
   window.addEventListener('scroll', onScroll, { passive:true });
   onScroll();
 
@@ -49,7 +59,20 @@
     document.removeEventListener('keydown', trapFocus);
     if(lastFocused) lastFocused.focus();
   }
-  if(trigger) trigger.addEventListener('click', openMenu);
+  if(trigger) trigger.addEventListener('click', function(e){
+    if(nav && nav.classList.contains('is-mini')){
+      e.stopPropagation();
+      setPeek(!nav.classList.contains('is-peek'));
+      return;
+    }
+    openMenu();
+  });
+  document.addEventListener('click', function(e){
+    if(nav && nav.classList.contains('is-peek') && !nav.contains(e.target)) setPeek(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && nav && nav.classList.contains('is-peek')){ setPeek(false); if(trigger) trigger.focus(); }
+  });
   if(closeBtn) closeBtn.addEventListener('click', closeMenu);
 
   // Close on navigate so a back/bfcache restore never lands on an open menu.
@@ -75,5 +98,16 @@
     if(!href) return;
     var clean = href.replace(/\/$/,'') || '/';
     if(clean === path){ a.setAttribute('aria-current','page'); }
+  });
+})();
+
+(function(){
+  document.querySelectorAll('.hero-pause').forEach(function(btn){
+    var v = btn.parentNode.querySelector('video');
+    if(!v) return;
+    btn.addEventListener('click', function(){
+      if(v.paused){ v.play(); btn.classList.remove('is-paused'); btn.setAttribute('aria-label','Pause video'); }
+      else { v.pause(); btn.classList.add('is-paused'); btn.setAttribute('aria-label','Play video'); }
+    });
   });
 })();

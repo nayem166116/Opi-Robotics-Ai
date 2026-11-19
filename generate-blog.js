@@ -33,7 +33,7 @@ const POSTS = [
 <h2>The part everyone forgets: implementation drag</h2>
 <p>The real payback period isn't calculation-start to calculation-end \u2014 it's contract-signed to model-trusted. Most sites spend 2\u20134 weeks on instrumentation and another 2\u20134 weeks letting the model build a baseline before its first recommendation is trustworthy enough to act on. A payback estimate that ignores this ramp will always look better on paper than it does on your floor.</p>
 <h2>A simple way to sanity-check any vendor's number</h2>
-<p>Take their promised annual savings, divide by 12, and compare that monthly figure to your platform cost per month. If the ratio implies payback in under a month, ask what recovery rate they assumed \u2014 if it's above 60% in year one, that's the number to push back on. Our own <a href="/tool">Automation Payback Estimator</a> defaults to a 42% downtime recovery rate and a 24% labor recovery rate, which reflects what we've seen hold up across real deployments, not a best-case scenario.</p>`
+<p>Take their promised annual savings, divide by 12, and compare that monthly figure to your platform cost per month. If the ratio implies payback in under a month, ask what recovery rate they assumed \u2014 if it's above 60% in year one, that's the number to push back on. Our own Automation Payback Estimator defaults to a 42% downtime recovery rate and a 24% labor recovery rate, which reflects what we've seen hold up across real deployments, not a best-case scenario.</p>`
   },
   {
     slug:'/blog/safety-case-for-physical-ai',
@@ -63,9 +63,9 @@ const hero = heroStage({
 });
 
 const BLOG_IMG = {
-  '/blog/perception-stack-industrial-robots': 'product-features-poster.jpg',
-  '/blog/roi-of-embodied-ai': 'hero-about-poster.jpg',
-  '/blog/safety-case-for-physical-ai': 'product-poster.jpg'
+  '/blog/perception-stack-industrial-robots': 'photo-robot-lab.jpg',
+  '/blog/roi-of-embodied-ai': 'photo-filling-line.jpg',
+  '/blog/safety-case-for-physical-ai': 'photo-site-crew.jpg'
 };
 
 const sheet = `

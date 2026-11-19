@@ -26,7 +26,7 @@ ${hero}
     </section>
   </div>
 </main>
-${finale('Even off the map, the horizon is still there.', 'OPI ROBOTICS')}
+${finale('Even off the map, the horizon is still there.', 'OPI ROBOTICS', '/404')}
 ${footer()}
 ${cookieUI()}
 ${scripts()}

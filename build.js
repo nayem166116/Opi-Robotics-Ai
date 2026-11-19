@@ -8,28 +8,24 @@ const NAV_ITEMS = [
   { n:'01', label:'Home', href:'/', desc:'The perception stack, end to end' },
   { n:'02', label:'Features', href:'/features', desc:'Perceive, predict, act' },
   { n:'03', label:'Use Cases', href:'/use-cases', desc:'Where it runs on the floor' },
-  { n:'04', label:'Pricing', href:'/pricing', desc:'Plans and deployment tiers' },
-  { n:'05', label:'Free Tool', href:'/tool', desc:'Estimate your downtime cost' },
-  { n:'06', label:'Blog', href:'/blog', desc:'Notes on physical AI' },
-  { n:'07', label:'About', href:'/about', desc:'The team and the thesis' },
-  { n:'08', label:'Contact', href:'/contact', desc:'Talk to an engineer' },
+  { n:'04', label:'Blog', href:'/blog', desc:'Notes on physical AI' },
+  { n:'05', label:'About', href:'/about', desc:'The team and the thesis' },
+  { n:'06', label:'Contact', href:'/contact', desc:'Talk to an engineer' },
 ];
 
 function wordmark(){
-  return `<a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>`;
+  return `<a href="/" class="wordmark" aria-label="Opi Robotics home"><img class="wordmark__logo" data-brand="logo" src="/assets/brand/logo-mono.svg" alt="Opi Robotics" width="136" height="40" fetchpriority="high" decoding="sync"><span class="wordmark__mark" aria-hidden="true"></span><span class="wordmark__text">Opi Robotics</span></a>`;
 }
 
 function nav(){
   return `
-<nav class="site-nav">
+<nav class="site-nav" aria-label="Primary">
   ${wordmark()}
   <ul class="nav-links">
-    ${NAV_ITEMS.slice(1).map(i => `<li><a href="${i.href}">${i.label}</a></li>`).join('\n    ')}
+    ${NAV_ITEMS.map(i => `<li><a href="${i.href}">${i.label}</a></li>`).join('\n    ')}
   </ul>
-  <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
-    <a href="/login" class="btn-text" style="display:none" data-login-link>Sign in</a>
-    <a href="/register" class="nav-cta">Request access</a>
-    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay">
+  <div class="nav-actions">
+    <button class="nav-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="nav-overlay" aria-label="Menu">
       <span class="nav-trigger__label">Menu</span>
       <span class="nav-trigger__icon" aria-hidden="true"><span></span></span>
     </button>
@@ -46,8 +42,6 @@ function nav(){
     </ul>
   </div>
   <div class="nav-overlay__foot">
-    <a href="/login">Sign in</a>
-    <a href="/register">Request access</a>
     <a href="mailto:hello@opirobotics.com" class="nav-foot__spacer">hello@opirobotics.com</a>
   </div>
 </div>`;
@@ -56,13 +50,25 @@ function nav(){
 function footer(){
   return `
 <footer class="site-footer">
+  <svg class="footer-trace footer-trace--edge" viewBox="0 0 260 520" aria-hidden="true" focusable="false">
+    <path class="footer-trace__rail" pathLength="1000" d="M10 -10L118 104C134 121 156 132 180 136C214 142 236 170 236 204V540"/>
+    <path class="footer-trace__run footer-trace__run--late" pathLength="1000" d="M10 -10L118 104C134 121 156 132 180 136C214 142 236 170 236 204V540"/>
+    <circle class="footer-trace__joint" cx="118" cy="104" r="6"/>
+    <circle class="footer-trace__joint" cx="236" cy="204" r="9"/>
+  </svg>
   <div class="container">
-    <a href="/" class="footer-slab" aria-label="Opi Robotics home">OPI ROBOTICS</a>
+    <a href="/" class="footer-slab" aria-label="Opi Robotics home"><img src="/assets/brand/logo.svg" alt="Opi Robotics" width="204" height="60" loading="lazy"></a>
     <nav class="footer-directory" aria-label="Footer navigation">
+      <svg class="footer-trace footer-trace--mid" viewBox="0 0 160 320" aria-hidden="true" focusable="false">
+        <path class="footer-trace__rail" pathLength="1000" d="M40 -10V96C40 124 56 142 84 152L104 159C130 168 138 194 128 218L98 290"/>
+        <path class="footer-trace__run" pathLength="1000" d="M40 -10V96C40 124 56 142 84 152L104 159C130 168 138 194 128 218L98 290"/>
+        <circle class="footer-trace__joint" cx="40" cy="96" r="5"/>
+        <circle class="footer-trace__joint" cx="98" cy="290" r="8"/>
+      </svg>
       <div class="footer-directory__row">
         <div class="footer-directory__label">Product</div>
         <div class="footer-directory__links">
-          <a href="/features">Features</a><a href="/use-cases">Use cases</a><a href="/pricing">Pricing</a><a href="/tool">Free tool</a>
+          <a href="/features">Features</a><a href="/use-cases">Use cases</a>
         </div>
       </div>
       <div class="footer-directory__row">
@@ -72,16 +78,10 @@ function footer(){
         </div>
       </div>
       <div class="footer-directory__row">
-        <div class="footer-directory__label">Account</div>
-        <div class="footer-directory__links">
-          <a href="/login">Sign in</a><a href="/register">Request access</a>
-        </div>
-      </div>
-      <div class="footer-directory__row">
         <div class="footer-directory__label">Legal</div>
         <div class="footer-directory__links">
           <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a>
-          <button type="button" data-cookie="manage" style="background:none;border:0;color:var(--text-2);font-size:14.5px;cursor:pointer;padding:0;font-family:inherit;">Cookie Settings</button>
+          <button type="button" data-cookie="manage" style="background:none;border:0;cursor:pointer;padding:0;font-family:inherit;">Cookie Settings</button>
         </div>
       </div>
     </nav>
@@ -160,10 +160,8 @@ function headTags({ slug, title, description }){
 <link rel="stylesheet" href="/assets/css/pages.css">
 <link rel="stylesheet" href="/assets/css/media.css">
 <link rel="stylesheet" href="/assets/css/motion.css">
-<link rel="stylesheet" href="/assets/css/refined.css">
-<link rel="stylesheet" href="/assets/css/signature.css">
-<link rel="stylesheet" href="/assets/css/polish.css">
-<link rel="stylesheet" href="/assets/css/industrial.css">`;
+<link rel="preload" href="/assets/fonts/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/generalist.css">`;
 }
 
 function scripts(extra){
@@ -173,7 +171,6 @@ function scripts(extra){
 <script src="/assets/js/cookie-consent.js"></script>
 <script src="/assets/js/reveal.js"></script>
 <script src="/assets/js/media.js"></script>
-<script src="/assets/js/hero-reveal.js"></script>
 ${extra ? extra.map(s => `<script src="${s}"></script>`).join('\n') : ''}`;
 }
 
@@ -214,36 +211,82 @@ ${body}
 </div>${caption ? `\n<p class="media-caption">${caption}</p>` : ''}`;
 }
 
-function heroStage({ eyebrow, heading, lede, ctas, extraStage, compact, heroVideo }){
-  return `
-<div class="hero-stage${compact ? ' hero-stage--compact' : ''}">
-  <div class="starfield" aria-hidden="true"></div>
-  ${videoLayer({ name: heroVideo || 'hero', fallback: 'hero', className: 'hero-video' })}
-  <div class="hero-scrim" aria-hidden="true"></div>
-  <div class="horizon-line" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-content__main">
-      <div class="container">
-        ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
-        ${heading ? `<h1 class="hero-heading">${heading}</h1>` : ''}
-        ${lede ? `<p class="lede hero-lede">${lede}</p>` : ''}
-        ${ctas ? `<div class="hero-ctas">${ctas}</div>` : ''}
-      </div>
-    </div>
-    ${extraStage ? `<div class="hero-foot">
-      <div class="container">${extraStage}</div>
-    </div>` : ''}
-  </div>
-</div>
-<div class="hero-spacer${compact ? ' hero-spacer--sm' : ''}"></div>`;
+const STRIP = [
+  { video:'hero-pricing' },
+  { video:'product' },
+  { video:'hero-usecases' },
+  { video:'product-features' },
+  { video:'hero-about' },
+  { video:'stack' },
+  { video:'hero-home' },
+];
+function stripTile(t){
+  return t.video
+    ? `<div class="hero-tile">${videoLayer({ name:t.video, fallback:'hero', className:'hero-tile__media' })}</div>`
+    : `<div class="hero-tile"><img class="hero-tile__media" src="/assets/media/${t.img}" alt="" loading="eager" decoding="async"></div>`;
 }
 
-function finale(text, eyebrow){
+function heroStage({ eyebrow, heading, lede, ctas, extraStage, compact, heroVideo }){
+  const strip = !compact;
+  return `
+<header class="hero-stage${compact ? ' hero-stage--compact' : ' hero-stage--strip'}${/hero-(auth|legal)/.test(heroVideo || '') ? ' hero-stage--slim' : ''}">
+  <div class="hero-content">
+    <div class="hero-content__main">
+      ${eyebrow ? `<p class="eyebrow">${eyebrow}</p>` : ''}
+      ${heading ? `<h1 class="hero-heading">${heading}</h1>` : ''}
+      ${lede ? `<p class="lede hero-lede">${lede}</p>` : ''}
+      ${ctas ? `<div class="hero-ctas">${ctas}</div>` : ''}
+    </div>
+  </div>
+  ${strip ? `<div class="hero-strip" aria-hidden="true">${STRIP.map(stripTile).join('')}</div>` : `<div class="hero-feature">
+    ${videoLayer({ name: heroVideo || 'hero', fallback: 'hero', className: 'hero-video' })}
+    <button class="hero-pause" type="button" aria-label="Pause video"></button>
+  </div>`}
+</header>
+${extraStage ? `<div class="hero-foot"><div class="container">${extraStage}</div></div>` : ''}`;
+}
+
+const COLLAGE = ['photo-cnc.jpg','photo-parcel-hub.jpg','photo-washer-filler.jpg','photo-control-room.jpg','photo-pallet-racking.jpg','photo-forklift.jpg','photo-produce-dock.jpg','photo-body-shop.jpg','photo-excavator.jpg','photo-chassis-line.jpg','photo-robot-arm.jpg','photo-press-line.jpg'];
+function collageFor(slug){
+  let h = 0;
+  for(const c of String(slug || '')) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const keyed = Object.keys(FINALE).indexOf(slug);
+  const start = (keyed >= 0 ? keyed * 5 : h) % COLLAGE.length;
+  return Array.from({ length:8 }, (_, i) => COLLAGE[(start + i) % COLLAGE.length]);
+}
+const FINALE = {
+  '/':{ eyebrow:'OPI ROBOTICS', text:'The horizon keeps moving. So do we.', sub:'One perception layer for robots, fixed automation, and inspection systems \u2014 running on real floors.' },
+  '/features':{ eyebrow:'BUILT AS ONE STACK', text:'Not a dashboard. A nervous system for the floor.', sub:'Perception, prediction, and safety run as one continuous stack, from raw sensor data to a safe decision.' },
+  '/use-cases':{ eyebrow:'FOUR VERTICALS, ONE STACK', text:'The physical world doesn\u2019t change by industry. The failure modes do.', sub:'Automotive, warehousing, food & beverage, and heavy equipment \u2014 one perception layer across all four.' },
+  '/blog':{ eyebrow:'NOTES FROM THE FLOOR', text:'Written by the people who deploy this, not just market it.', sub:'Field-level thinking on physical AI, industrial reliability, and what it takes to deploy.' },
+  '/blog/perception-stack-industrial-robots':{ eyebrow:'PERCEPTION', text:'Built for the production line, not the lab bench.', sub:'Next up: the real payback math behind embodied AI on the plant floor.' },
+  '/blog/roi-of-embodied-ai':{ eyebrow:'PAYBACK', text:'Count what it costs to reach the savings.', sub:'Next up: building the safety case for physical AI before your first pilot.' },
+  '/blog/safety-case-for-physical-ai':{ eyebrow:'SAFETY', text:'Safety signs off before the pilot, not after.', sub:'Next up: what a perception stack actually needs to survive a factory floor.' },
+  '/about':{ eyebrow:'THE TEAM', text:'Built by people who\u2019ve stood on the floor at 2am waiting for a line to restart.', sub:'We hire engineers who\u2019ve spent real time on plant floors.' },
+  '/contact':{ eyebrow:'TALK TO US', text:'We read every message ourselves.', sub:'Sales, support, press, or careers \u2014 every inbox reaches a real person.' },
+  '/privacy':{ eyebrow:'PRIVACY', text:'Questions about this policy?', sub:'Write to privacy@opirobotics.com and we\u2019ll get back to you.' },
+  '/terms':{ eyebrow:'TERMS', text:'Questions about these terms?', sub:'Write to hello@opirobotics.com and we\u2019ll get back to you.' },
+  '/cookies':{ eyebrow:'COOKIES', text:'You decide what we store.', sub:'Change your choices anytime in Cookie Settings.' },
+  '/404':{ eyebrow:'PAGE NOT FOUND', text:'Even off the map, the horizon is still there.', sub:'Head back home, or start with Features and Use cases.' },
+};
+function finale(text, eyebrow, slug){
+  const copy = FINALE[slug] || { eyebrow, text };
+  text = copy.text; eyebrow = copy.eyebrow;
+  const photos = collageFor(slug);
+  const tile = f => `<img class="finale__tile" src="/assets/media/${f}" alt="" decoding="async">`;
+  const column = (list, mod) => `<div class="finale__col${mod ? ' finale__col--' + mod : ''}"><div class="finale__track">${list.concat(list).map(tile).join('')}</div></div>`;
   return `
 <div class="finale">
-  <div>
-    <p class="eyebrow">${eyebrow || 'OPI ROBOTICS'}</p>
-    <p>${text}</p>
+  <div class="finale__inner">
+    <div class="finale__copy">
+      <p class="eyebrow">${eyebrow || 'OPI ROBOTICS'}</p>
+      <p>${text}</p>${copy.sub ? `
+      <p class="finale__sub">${copy.sub}</p>` : ''}
+    </div>
+    <div class="finale__marquee" aria-hidden="true">
+      ${column(photos.filter((_, i) => i % 2 === 0), 'up')}
+      ${column(photos.filter((_, i) => i % 2 === 1), 'down')}
+    </div>
   </div>
 </div>`;
 }
@@ -287,7 +330,7 @@ ${hero}
 ${sheet}
   </div>
 </main>
-${finale(finaleText, finaleEyebrow)}
+${finale(finaleText, finaleEyebrow, slug)}
 ${footer()}
 ${cookieUI()}
 ${scripts(extraScripts)}

@@ -1,11 +1,11 @@
-const { page, heroStage, btnPrimary, btnGhost } = require('./build.js');
+const { page, heroStage, btnPrimary } = require('./build.js');
 
 const hero = heroStage({
   heroVideo: 'hero-usecases',
   eyebrow: 'USE CASES',
   heading: 'Physical work, mapped.',
   lede: 'Four verticals where perception failures are the most expensive \u2014 and where Opi Robotics is already in production.',
-  ctas: `${btnPrimary('Request access', '/register')}`,
+  ctas: `${btnPrimary('Contact us', '/contact')}`,
   compact: true
 });
 
@@ -48,13 +48,6 @@ ${panel('01','Automotive final assembly', p1c, p1a, p1o, false, 'usecase-automot
 ${panel('02','Warehousing & logistics', p2c, p2a, p2o, true, 'usecase-warehouse')}
 ${panel('03','Food & beverage lines', p3c, p3a, p3o, false, 'usecase-beverage')}
 ${panel('04','Heavy equipment yards', p4c, p4a, p4o, true, 'usecase-heavy-equipment')}
-
-<section class="section cta-band" style="text-align:center;">
-  <div data-reveal="rise">
-    <h2 style="max-width:600px;margin:0 auto;">Don\u2019t see your line above? Most deployments start with one cell.</h2>
-    <div style="display:flex;gap:16px;justify-content:center;margin-top:32px;flex-wrap:wrap;">${btnPrimary('Request access', '/register')}${btnGhost('Talk to the team', '/contact')}</div>
-  </div>
-</section>
 `;
 
 page({
