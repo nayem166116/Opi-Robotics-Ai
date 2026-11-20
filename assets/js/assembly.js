@@ -1,5 +1,5 @@
 /* Home: "The perception stack" — a cobot cell that comes apart as you scroll.
-   Geometry is built procedurally; three.js loads only when the section gets close. */
+   The scene starts loading as soon as the page opens, so the robot is ready before the section scrolls in. */
 const root = document.querySelector('[data-assembly]');
 
 if (root) {
@@ -42,10 +42,5 @@ if (root) {
     .then(m => m.mount({ root, labels, hint, KEYS, reduce, progress, activeAt, setActive, smooth, clamp }))
     .catch(err => { console.error('[assembly]', err); root.classList.add('no-webgl'); setActive(0); });
 
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => {
-      if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); }
-    }, { rootMargin: '800px 0px' });
-    io.observe(root);
-  } else start();
+  start();
 }

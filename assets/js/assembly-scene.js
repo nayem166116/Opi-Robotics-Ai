@@ -1,11 +1,6 @@
 import * as THREE from '/assets/vendor/three/three.module.min.js';
 import { GLTFLoader } from '/assets/vendor/three/addons/loaders/GLTFLoader.js';
 import { RoundedBoxGeometry } from '/assets/vendor/three/addons/geometries/RoundedBoxGeometry.js';
-import { EffectComposer } from '/assets/vendor/three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from '/assets/vendor/three/addons/postprocessing/RenderPass.js';
-import { GTAOPass } from '/assets/vendor/three/addons/postprocessing/GTAOPass.js';
-import { UnrealBloomPass } from '/assets/vendor/three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from '/assets/vendor/three/addons/postprocessing/OutputPass.js';
 
 const BG = 0x060708;
 const AMBER = new THREE.Color(0xff8a3d);
@@ -48,22 +43,21 @@ function zoneTexture() {
   return t;
 }
 
-const curtainMaterial = () => new THREE.ShaderMaterial({
-  transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, toneMapped: false,
-  uniforms: { uColor: { value: AMBER.clone() }, uOpacity: { value: 0 }, uTime: { value: 0 } },
-  vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
-  fragmentShader: `uniform vec3 uColor; uniform float uOpacity; uniform float uTime; varying vec2 vUv;
-    void main(){
-      float fade = pow(1.0 - vUv.y, 4.0);
-      float scan = smoothstep(0.02, 0.0, abs(fract(uTime * 0.18) - vUv.y)) * 0.25;
-      gl_FragColor = vec4(uColor, (fade * 0.5 + scan * pow(1.0 - vUv.y, 1.5)) * uOpacity);
-    }`
-});
+// soft radial gradient used for the light curtain fade and the contact shadows
+function gradientTexture(stops, vertical) {
+  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+  const g = c.getContext('2d');
+  const grd = vertical ? g.createLinearGradient(0, S, 0, 0) : g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+  for (const [o, col] of stops) grd.addColorStop(o, col);
+  g.fillStyle = grd; g.fillRect(0, 0, S, S);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
 
 export async function mount({ root, labels, hint, KEYS, reduce, progress, activeAt, setActive, smooth, clamp }) {
   const canvas = root.querySelector('.assembly__canvas');
   const sticky = root.querySelector('.assembly__sticky');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setClearColor(BG, 1);
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 1.0;
@@ -73,7 +67,8 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(BG);
   scene.fog = new THREE.Fog(BG, 5.5, 11);
-  scene.environment = studioEnvironment(renderer);
+  let envTex = studioEnvironment(renderer);
+  scene.environment = envTex;
   scene.environmentIntensity = 0.85;
 
   const camera = new THREE.PerspectiveCamera(24, 1, 0.05, 40);
@@ -114,6 +109,13 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     const b = mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.014, 6), M.alu); b.position.set(x, 0.027, z); pedestal.add(b);
   }
   cell.add(pedestal);
+  const contactTex = gradientTexture([[0, 'rgba(0,0,0,0.85)'], [0.45, 'rgba(0,0,0,0.45)'], [1, 'rgba(0,0,0,0)']]);
+  const contact = (size, x, z) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ map: contactTex, transparent: true, depthWrite: false, toneMapped: false }));
+    m.position.set(x, 0.001, z); m.renderOrder = 0; return m;
+  };
+  cell.add(contact(0.9, 0, 0));
 
   // edge controller: finned aluminium enclosure on the floor
   const ctrl = new THREE.Group();
@@ -133,6 +135,7 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   }
   ctrl.position.set(-0.62, 0, -0.18); ctrl.rotation.y = 0.5;
   cell.add(ctrl);
+  cell.add(contact(0.7, ctrl.position.x, ctrl.position.z));
 
   // floor cable from controller to pedestal
   const cable = mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
@@ -145,8 +148,16 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   const zoneMat = new THREE.MeshBasicMaterial({ map: zoneTexture(), transparent: true, depthWrite: false, toneMapped: false, opacity: 0 });
   const zone = new THREE.Mesh(new THREE.PlaneGeometry(R * 2.06, R * 2.06).rotateX(-Math.PI / 2), zoneMat);
   zone.position.y = 0.002; zone.renderOrder = 1; cell.add(zone);
-  const curtain = new THREE.Mesh(new THREE.CylinderGeometry(R * 0.93, R * 0.93, 1.5, 96, 1, true), curtainMaterial());
+  // light curtain: plain additive materials only, no custom shaders, so every GPU/driver draws it the same way
+  const curtainMat = new THREE.MeshBasicMaterial({
+    color: AMBER, map: gradientTexture([[0, 'rgba(255,255,255,1)'], [0.35, 'rgba(255,255,255,0.35)'], [1, 'rgba(255,255,255,0)']], true),
+    transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, toneMapped: false
+  });
+  const curtain = new THREE.Mesh(new THREE.CylinderGeometry(R * 0.93, R * 0.93, 1.5, 96, 1, true), curtainMat);
   curtain.position.y = 0.75; curtain.renderOrder = 2; cell.add(curtain);
+  const scanMat = new THREE.MeshBasicMaterial({ color: AMBER, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, toneMapped: false });
+  const scan = new THREE.Mesh(new THREE.CylinderGeometry(R * 0.93, R * 0.93, 0.012, 96, 1, true), scanMat);
+  scan.renderOrder = 3; cell.add(scan);
   const zoneAnchor = new THREE.Object3D(); zoneAnchor.position.set(R * 0.92, 0.02, R * 0.38); cell.add(zoneAnchor);
 
   /* ---------- the arm ---------- */
@@ -228,28 +239,17 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   const rimL = new THREE.SpotLight(0xcfdcff, 24, 0, 0.5, 1, 2); rimL.position.set(-2.6, 2.4, -2.4); rimL.target.position.set(0, 1, 0); scene.add(rimL, rimL.target);
   const rimR = new THREE.SpotLight(0xffe0c4, 14, 0, 0.5, 1, 2); rimR.position.set(2.8, 1.8, -2.2); rimR.target.position.set(0, 0.9, 0); scene.add(rimR, rimR.target);
 
-  /* ---------- post ---------- */
   let W0 = 1, H0 = 1, mobile = false;
-  const rt = new THREE.WebGLRenderTarget(2, 2, { type: THREE.HalfFloatType, samples: 4 });
-  const composer = new EffectComposer(renderer, rt);
-  composer.addPass(new RenderPass(scene, camera));
-  const gtao = new GTAOPass(scene, camera, 2, 2);
-  gtao.updateGtaoMaterial({ radius: 0.22, distanceExponent: 1.4, thickness: 1, scale: 1.1, samples: 16 });
-  gtao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 16 });
-  gtao.blendIntensity = 0.85;
-  composer.addPass(gtao);
-  const bloom = new UnrealBloomPass(new THREE.Vector2(2, 2), 0.22, 0.5, 1.05);
-  composer.addPass(bloom);
-  composer.addPass(new OutputPass());
 
-  let dpr = Math.min(devicePixelRatio || 1, 1.75);
+  let dpr = Math.min(devicePixelRatio || 1, 1.5);
   function resize() {
     const r = sticky.getBoundingClientRect();
     W0 = Math.max(1, r.width); H0 = Math.max(1, r.height);
     mobile = W0 < 900;
     if (mobile) dpr = Math.min(dpr, 1.5);
-    renderer.setPixelRatio(dpr); composer.setPixelRatio(dpr);
-    renderer.setSize(W0, H0, false); composer.setSize(W0, H0);
+    dpr = Math.min(dpr, Math.sqrt(3.2e6 / (W0 * H0)));
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(W0, H0, false);
     camera.aspect = W0 / H0;
     camera.fov = camera.aspect < 0.9 ? 34 : 24;
     if (mobile) camera.setViewOffset(W0, H0, 0, H0 * 0.08, W0, H0);
@@ -318,9 +318,12 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     const zoneOn = ak === 'safety' ? 1 : 0;
     zoneMat.opacity += ((0.14 + zoneOn * 0.6) * clamp(e * 1.4) - zoneMat.opacity) * (1 - Math.exp(-dt * 5));
     zoneMat.color.setScalar(1 + zoneOn * 0.25);
-    curtain.material.uniforms.uOpacity.value += (zoneOn * 0.13 - curtain.material.uniforms.uOpacity.value) * (1 - Math.exp(-dt * 4));
-    curtain.material.uniforms.uTime.value = t;
-    curtain.visible = curtain.material.uniforms.uOpacity.value > 0.004;
+    curtainMat.opacity += (zoneOn * 0.22 - curtainMat.opacity) * (1 - Math.exp(-dt * 4));
+    curtain.visible = curtainMat.opacity > 0.004;
+    const sweep = (t * 0.18) % 1;
+    scan.position.y = 0.02 + sweep * 1.2;
+    scanMat.opacity = curtainMat.opacity * 2.2 * (1 - sweep);
+    scan.visible = curtain.visible;
     M.led.emissiveIntensity = 1.2 + (ak === 'integration' || ak === 'perception' ? 1.6 + Math.sin(t * 4) * 0.4 : 0);
 
     // camera: slow orbit, frames the whole cell, leans towards the part being explained
@@ -339,7 +342,8 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     camera.lookAt(look);
 
     if (skipRender) return;
-    composer.render(dt);
+    renderer.render(scene, camera);
+    watchdog(ak);
 
     robotC.set(0, 0.95, 0).project(camera);
     const midX = (robotC.x + 1) / 2 * W0;
@@ -357,9 +361,35 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     if (hint) hint.style.opacity = String(clamp(1 - cur * 14));
 
     // drop the expensive passes on hardware that can't hold ~30fps
-    if (!HQ && ++frames > 20 && frames < 140) { slow += dt > 0.034 ? 1 : 0; if (slow > 40 && gtao.enabled) { gtao.enabled = false; bloom.enabled = false; dpr = 1; resize(); } }
+    if (!HQ && ++frames > 20 && frames < 140) { slow += dt > 0.034 ? 1 : 0; if (slow > 40 && dpr > 1) { dpr = 1; resize(); } }
 
     if (running && !TEST) raf = requestAnimationFrame(frame);
+  }
+  /* If a driver ever hands back an empty frame, the arm (always white-ish and on screen) reads as background.
+     It is sampled a few times after load and after every state change only (readPixels stalls the GPU),
+     and three empty checks in a row drop to the lightest pipeline instead of leaving a black panel. */
+  const gl = renderer.getContext(), px = new Uint8Array(4), probe = new THREE.Vector3();
+  const probes = ['link1', 'link3', 'link5'].map(n => byName[n]).filter(Boolean);
+  let since = 0, lastKey, empty = 0, degraded = false;
+  function watchdog(ak) {
+    if (ak !== lastKey) { lastKey = ak; since = 0; }
+    since++;
+    if (degraded || (since !== 12 && since !== 40 && since !== 90) || gl.isContextLost()) return;
+    let seen = 0, lit = false;
+    for (const o of probes) {
+      o.getWorldPosition(probe).project(camera);
+      if (Math.abs(probe.x) > 0.95 || Math.abs(probe.y) > 0.95 || probe.z > 1) continue;
+      seen++;
+      gl.readPixels(Math.round((probe.x + 1) / 2 * gl.drawingBufferWidth), Math.round((probe.y + 1) / 2 * gl.drawingBufferHeight), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+      if (Math.max(px[0], px[1], px[2]) > 24) lit = true;
+    }
+    if (!seen || lit) { empty = 0; return; }
+    if (++empty < 3) return;
+    degraded = true;
+    console.warn('[assembly] empty frame detected, switching to the safe render path');
+    renderer.shadowMap.enabled = false;
+    scene.traverse(o => { if (o.material) o.material.needsUpdate = true; });
+    dpr = 1; resize();
   }
   function setRunning(on) {
     running = on;
@@ -368,6 +398,19 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   new IntersectionObserver(es => { visible = es[0].isIntersecting; setRunning(visible && !document.hidden); }, { rootMargin: '100px 0px' }).observe(sticky);
   document.addEventListener('visibilitychange', () => setRunning(visible && !document.hidden));
   if (reduce) root.addEventListener('click', () => { if (!raf) raf = requestAnimationFrame(frame); });
+  // compile every program up front (curtain included) so no state change ever waits on a shader
+  frame(0, cur, 1 / 60, true);
+  curtain.visible = scan.visible = true;
+  if (renderer.extensions.has('KHR_parallel_shader_compile')) await renderer.compileAsync(scene, camera).catch(() => renderer.compile(scene, camera));
+  else renderer.compile(scene, camera);
+  curtain.visible = scan.visible = false;
+  // if the GPU drops the context (driver reset, memory pressure), rebuild what lived only on the GPU and resume
+  canvas.addEventListener('webglcontextlost', ev => { ev.preventDefault(); cancelAnimationFrame(raf); raf = 0; }, false);
+  canvas.addEventListener('webglcontextrestored', () => {
+    envTex.dispose(); envTex = studioEnvironment(renderer); scene.environment = envTex;
+    resize(); last = performance.now(); frame();
+    setRunning(visible && !document.hidden);
+  }, false);
   root.classList.add('is-ready');
   if (TEST) window.__asm = { settle(p, n = 300) { for (let i = 0; i < n; i++) frame(0, p, 1 / 60, true); frame(0, p, 1 / 60, false); } };
   frame();
