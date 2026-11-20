@@ -759,3 +759,60 @@ input[type=range]{accent-color:#111}
 @media (prefers-reduced-motion:reduce){.hero-stage--strip .eyebrow::before{animation:none}}
 .hero-stage--strip .hero-ctas .btn-primary .btn__cell{padding:0 20px !important;height:46px}
 .hero-stage--strip .hero-ctas .btn-primary .btn__cell + .btn__cell{padding:0 16px !important;width:auto !important;background:none !important}
+
+/* Home: the perception stack, taken apart (three.js) */
+.assembly{position:relative;z-index:2;height:460vh;margin:0;background:#060708}
+.assembly__sticky{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#fff;background:#060708}
+.assembly__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .8s ease}
+.assembly.is-ready .assembly__canvas{opacity:1}
+.assembly__labels{position:absolute;inset:0;pointer-events:none}
+.assembly__label{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.02em;color:rgba(255,255,255,.92);text-shadow:0 1px 8px rgba(0,0,0,.6);will-change:transform,opacity}
+.assembly__label.is-active{color:#ffb27f}
+.assembly__copy{position:absolute;left:clamp(24px,4.5vw,72px);top:50%;transform:translateY(-50%);width:min(440px,36%);z-index:1}
+.assembly__kicker{margin:0 0 18px;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.5)}
+.assembly__title{margin:0;font-size:clamp(2rem,1.1rem + 2vw,3.1rem);font-weight:400;letter-spacing:-.035em;line-height:1.04;color:#fff;text-wrap:balance}
+.assembly__lede{margin:18px 0 0;max-width:40ch;color:rgba(255,255,255,.6);font-size:1rem;line-height:1.55}
+.assembly__parts{list-style:none;margin:34px 0 0;padding:0}
+.assembly__parts li{margin:0;padding:0}
+.assembly__parts li::before{display:none !important}
+.assembly__parts button{all:unset;box-sizing:border-box;display:block;width:100%;padding:9px 0;cursor:pointer}
+.assembly__parts button:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:2px}
+.assembly__part-name{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:rgba(255,255,255,.42);transition:color .3s}
+.assembly__part-name i{width:16px;text-align:center;font-size:13px}
+.assembly__parts button:hover .assembly__part-name,.assembly__part.is-active .assembly__part-name{color:#fff}
+.assembly__part.is-active .assembly__part-name i{color:#ff8a3d}
+.assembly__part-body{display:grid;grid-template-rows:0fr;padding-left:28px;color:rgba(255,255,255,.6);font-size:14px;line-height:1.55;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1),opacity .3s;opacity:0;overflow:hidden}
+.assembly__part.is-active .assembly__part-body{grid-template-rows:1fr;opacity:1;padding-top:6px}
+.assembly__hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);margin:0;font-size:13px;color:rgba(255,255,255,.5);display:flex;gap:8px;align-items:center;white-space:nowrap}
+.assembly.no-webgl .assembly__labels,.assembly.no-webgl .assembly__hint{display:none}
+.assembly.no-webgl,.assembly.is-static{height:auto}
+.assembly.no-webgl .assembly__sticky,.assembly.is-static .assembly__sticky{position:relative;top:auto;height:100vh;max-height:860px}
+.assembly.is-static .assembly__hint{display:none}
+@media (max-width:899px){
+  .assembly{height:420vh}
+  .assembly__sticky{top:64px;height:calc(100svh - 64px);min-height:520px}
+  .assembly__copy{left:20px;right:20px;width:auto;top:auto;bottom:20px;transform:none}
+  .assembly__title{font-size:1.6rem}
+  .assembly__lede{display:none}
+  .assembly__kicker{margin-bottom:10px}
+  .assembly__parts{margin-top:14px}
+  .assembly.has-active .assembly__part:not(.is-active){display:none}
+  .assembly.has-active .assembly__kicker,.assembly.has-active .assembly__title{display:none}
+  .assembly__hint{bottom:auto;top:16px}
+}
+.assembly__part-body > span{min-height:0;overflow:hidden}
+
+/* Plain labels: no dots, chips, rules or boxes on titles and taglines */
+.hero-stage--strip .eyebrow{font-family:var(--font-sans) !important;font-size:12px !important;letter-spacing:.1em !important;color:#555 !important}
+.hero-stage--strip .eyebrow::before{display:none !important;content:none !important;animation:none !important}
+.hero-stage--strip .hero-lede{border-left:0 !important;padding-left:0 !important}
+.bento__tag{background:none !important;padding:0 !important;border-radius:0 !important;color:rgba(255,255,255,.55) !important;font-family:var(--font-sans) !important;font-size:12px !important;letter-spacing:.1em !important}
+.principles .principle{border-top:0 !important;padding-top:0 !important}
+.site-footer .footer-social a{width:auto !important;height:auto !important;background:none !important;border-radius:0 !important;color:rgba(255,255,255,.7) !important;font-size:17px}
+.site-footer .footer-social a:hover{background:none !important;color:#fff !important}
+.site-footer .footer-social{gap:18px}
+
+/* Home hero fills the first screen, so the 3D section only appears on scroll */
+@media (min-width:900px){.hero-stage--strip{height:max(600px,100vh) !important;height:max(600px,100svh) !important}}
+@media (max-width:899px){.hero-stage--strip{display:flex !important;flex-direction:column;justify-content:space-between;min-height:calc(100svh - 64px)}}
+@media (max-width:1099px){.site-nav.is-solid{background:rgba(255,255,255,.94) !important;backdrop-filter:saturate(1.4) blur(10px) !important;-webkit-backdrop-filter:saturate(1.4) blur(10px) !important;border-bottom-color:rgba(0,0,0,.06) !important}}

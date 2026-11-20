@@ -307,6 +307,7 @@ const LABEL_ICONS = {
   'ALMOST THERE':'mailcheck','ACCOUNT RECOVERY':'lock','LEGAL':'scale','404':'cone'
 };
 function labelIcons(html){
+  return html;
   return html.replace(/<p class="eyebrow"([^>]*)>([^<]*)<\/p>/g, (m, attrs, text) => {
     if (/data-icon=/.test(attrs)) return m;
     const icon = LABEL_ICONS[text.trim()] || (/^BLOG \u00b7 /.test(text.trim()) ? 'calendar' : null);
