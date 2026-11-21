@@ -101,14 +101,30 @@
   <p class="lede" data-reveal="rise">A robot arm can repeat a motion with sub-millimeter precision for a decade. What it usually can't do is notice that the part it's holding has shifted, that a neighboring machine is vibrating differently than it did last month, or that a maintenance window closed three weeks too late. Opi Robotics exists to close that gap — giving physical systems a continuous, shared read of the space and equipment around them.</p>
 </section>
 
-<section class="section section--light principles">
-  <div class="section-head" data-reveal="rise"><p class="eyebrow">HOW WE WORK</p></div>
-  <div class="principles__grid" data-reveal="stagger">
-    <div class="row-card principle"><div class="row-card__idx">01</div><div class="row-card__body"><h3>We deploy on real floors, not just in pilots</h3><p>Every model we ship has been validated against production equipment before it reaches a customer — not just a benchmark dataset.</p></div></div>
-    <div class="row-card principle"><div class="row-card__idx">02</div><div class="row-card__body"><h3>We treat safety engineering as a co-owner, not a reviewer</h3><p>Any capability that can influence a physical action is scoped with a customer's safety team from the first conversation, not after a pilot is already running.</p></div></div>
-    <div class="row-card principle"><div class="row-card__idx">03</div><div class="row-card__body"><h3>We publish our reasoning, including the uncomfortable parts</h3><p>Our <a href="/blog" style="text-decoration:underline;">blog</a> includes the failure modes and tradeoffs we've hit, not just the wins — because that's what a buyer actually needs to evaluate us.</p></div></div>
+  </div>
+<section class="assembly assembly--work" data-work aria-label="How we work, shown on a working robot cell">
+  <div class="assembly__sticky">
+    <canvas class="assembly__canvas" aria-hidden="true"></canvas>
+    <div class="assembly__labels" aria-hidden="true">
+      <span class="assembly__label" data-label="infeed">Infeed</span>
+      <span class="assembly__label" data-label="outfeed">Outfeed</span>
+      <span class="assembly__label" data-label="person">Reduced speed</span>
+      <span class="assembly__label" data-label="miss">Missed pick</span>
+      <span class="assembly__label" data-label="log">Logged for review</span>
+    </div>
+    <div class="assembly__copy">
+      <p class="assembly__kicker">HOW WE WORK</p>
+      <ol class="assembly__parts">
+        <li class="assembly__part" data-part="floor"><button type="button" data-part-btn="0"><span class="assembly__part-name"><i class="fa-solid fa-industry" aria-hidden="true"></i>We deploy on real floors, not just in pilots</span></button><div class="assembly__part-body"><span>Every model we ship has been validated against production equipment before it reaches a customer — not just a benchmark dataset.</div></li>
+        <li class="assembly__part" data-part="safety"><button type="button" data-part-btn="1"><span class="assembly__part-name"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i>We treat safety engineering as a co-owner, not a reviewer</span></button><div class="assembly__part-body"><span>Any capability that can influence a physical action is scoped with a customer's safety team from the first conversation, not after a pilot is already running.</div></li>
+        <li class="assembly__part" data-part="reasoning"><button type="button" data-part-btn="2"><span class="assembly__part-name"><i class="fa-solid fa-book-open" aria-hidden="true"></i>We publish our reasoning, including the uncomfortable parts</span></button><div class="assembly__part-body"><span>Our <a href="/blog" style="text-decoration:underline;">blog</a> includes the failure modes and tradeoffs we've hit, not just the wins — because that's what a buyer actually needs to evaluate us.</div></li>
+      </ol>
+    </div>
   </div>
 </section>
+<link rel="modulepreload" href="/assets/js/work-scene.js">
+<script type="module" src="/assets/js/work.js"></script>
+  <div class="container">
 
 <section class="section">
   <div class="section-head" data-reveal="rise"><p class="eyebrow">COMPANY DETAILS</p></div>

@@ -10,7 +10,7 @@ const TEST = /[?&]asmtest\b/.test(location.search);
 
 /* Studio light rig baked into an environment map: one big overhead softbox,
    two vertical strips and a low bounce card, the way product photographers light white plastic. */
-function studioEnvironment(renderer) {
+export function studioEnvironment(renderer) {
   const env = new THREE.Scene();
   env.background = new THREE.Color(0x020202);
   const card = (w, h, v, x, y, z, tint = 0xffffff) => {
@@ -44,7 +44,7 @@ function zoneTexture() {
 }
 
 // soft radial gradient used for the light curtain fade and the contact shadows
-function gradientTexture(stops, vertical) {
+export function gradientTexture(stops, vertical) {
   const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
   const g = c.getContext('2d');
   const grd = vertical ? g.createLinearGradient(0, S, 0, 0) : g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
@@ -242,7 +242,9 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   let W0 = 1, H0 = 1, mobile = false;
 
   let dpr = Math.min(devicePixelRatio || 1, 1.5);
+  let idleDrawn = 0;
   function resize() {
+    idleDrawn = 0;
     const r = sticky.getBoundingClientRect();
     W0 = Math.max(1, r.width); H0 = Math.max(1, r.height);
     mobile = W0 < 900;
@@ -262,7 +264,7 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
   /* ---------- frame ---------- */
   const tmp = new THREE.Vector3(), tmpQ = new THREE.Quaternion(), look = new THREE.Vector3(0, 0.95, 0), camPos = new THREE.Vector3();
   const focus = new THREE.Vector3(0, 0.95, 0);
-  let cur = reduce ? 0.62 : progress(), running = false, visible = false, raf = 0, last = performance.now(), slow = 0, frames = 0, camInit = false;
+  let cur = reduce ? 0.62 : progress(), running = false, visible = false, raf = 0, last = performance.now(), slow = 0, frames = 0;
   const t0 = performance.now();
   const anchors = {
     perception: () => cam.getWorldPosition(tmp).add(new THREE.Vector3(0, 0.06, 0)),
@@ -270,14 +272,7 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     safety: () => zoneAnchor.getWorldPosition(tmp),
     integration: () => ctrl.getWorldPosition(tmp).add(new THREE.Vector3(0, CH + 0.08, 0))
   };
-  const ZOOM = { perception: -0.45, wear: -0.2, safety: 0.35, integration: 0 };
   const robotC = new THREE.Vector3();
-  const partFocus = {
-    perception: () => hand ? hand.getWorldPosition(new THREE.Vector3()) : null,
-    wear: () => byName.link3 ? center(byName.link3) : null,
-    safety: () => new THREE.Vector3(0, 0.55, 0),
-    integration: () => ctrl.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.25, 0))
-  };
 
   function frame(now, forceP, fixedDt, skipRender) {
     raf = 0;
@@ -326,21 +321,22 @@ export async function mount({ root, labels, hint, KEYS, reduce, progress, active
     scan.visible = curtain.visible;
     M.led.emissiveIntensity = 1.2 + (ak === 'integration' || ak === 'perception' ? 1.6 + Math.sin(t * 4) * 0.4 : 0);
 
-    // camera: slow orbit, frames the whole cell, leans towards the part being explained
-    const fGoal = (ak && partFocus[ak]()) || new THREE.Vector3(0, 0.62 + e * 0.32, 0);
-    const fMix = ak ? (ak === 'integration' ? 0.22 : 0.38) : 0;
-    const base = new THREE.Vector3(-0.05, 0.72 + e * 0.3, 0);
-    focus.lerp(base.clone().lerp(fGoal, fMix), 1 - Math.exp(-dt * 3));
+    // camera: locked, so the floor and pedestal stay still and only the parts move
     const narrow = camera.aspect < 0.9;
-    const dist = (narrow ? 5.2 : 4.7) + e * (narrow ? 1.2 : 1.3) + (ak ? ZOOM[ak] : 0) + (!mobile && W0 < 1300 ? 0.5 : 0);
-    const az = THREE.MathUtils.lerp(0.62, -0.42, smooth(0, 1, cur)) + (reduce ? 0 : Math.sin(t * 0.13) * 0.025);
-    const el = THREE.MathUtils.lerp(0.1, 0.24, smooth(0.04, 0.55, cur));
+    const dist = (narrow ? 6.2 : 5.75) + (!mobile && W0 < 1300 ? 0.5 : 0);
+    focus.set(-0.05, 0.98, 0);
+    const az = 0.12, el = 0.2;
     camPos.set(focus.x + dist * Math.cos(el) * Math.sin(az), focus.y + dist * Math.sin(el), focus.z + dist * Math.cos(el) * Math.cos(az));
-    if (!camInit) { camera.position.copy(camPos); look.copy(focus); camInit = true; }
-    camera.position.lerp(camPos, 1 - Math.exp(-dt * 4));
-    look.lerp(focus, 1 - Math.exp(-dt * 4));
+    camera.position.copy(camPos);
+    look.copy(focus);
     camera.lookAt(look);
 
+    // Fully assembled and at rest (e.g. while the hero is still on screen): the last frame is already
+    // on the canvas, so stop drawing and leave the GPU and main thread to the hero video strip.
+    const still = !reduce && !skipRender && cur === p && e < 0.0005 && zoneMat.opacity < 0.002 && !curtain.visible &&
+      parts.every(q => Math.abs(q.v) < 1e-4 && Math.abs(q.dim - 1) < 1e-3);
+    idleDrawn = still ? idleDrawn + 1 : 0;
+    if (still && idleDrawn > 3) { if (running && !TEST) raf = requestAnimationFrame(frame); return; }
     if (skipRender) return;
     renderer.render(scene, camera);
     watchdog(ak);

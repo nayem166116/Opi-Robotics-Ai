@@ -502,7 +502,7 @@ input[type=range]{accent-color:#111}
 .hero-stage--strip .hero-lede{font-size:1rem;max-width:420px}
 .hero-stage--strip .hero-strip{position:absolute;inset:0;z-index:1;display:block;height:auto !important;margin:0 !important;overflow:hidden;transform:none !important;opacity:0;transition:opacity .9s cubic-bezier(.2,.7,.2,1) .15s}
 .hero-stage--strip .hero-strip.is-ready{opacity:1}
-.hero-stage--strip .hero-tile{position:absolute;left:0;top:0;width:0;height:0;aspect-ratio:auto !important;opacity:1 !important;animation:none !important;border-radius:4px;will-change:transform,width,height}
+.hero-stage--strip .hero-tile{position:absolute;left:0;top:0;width:0;height:0;aspect-ratio:auto !important;opacity:1;animation:none !important;border-radius:4px;transform-origin:0 0;backface-visibility:hidden}
 @media (max-width:899px){
   .hero-stage--strip{height:auto !important}
   .hero-stage--strip .hero-content{pointer-events:auto}
@@ -816,3 +816,26 @@ input[type=range]{accent-color:#111}
 @media (min-width:900px){.hero-stage--strip{height:max(600px,100vh) !important;height:max(600px,100svh) !important}}
 @media (max-width:899px){.hero-stage--strip{display:flex !important;flex-direction:column;justify-content:space-between;min-height:calc(100svh - 64px)}}
 @media (max-width:1099px){.site-nav.is-solid{background:rgba(255,255,255,.94) !important;backdrop-filter:saturate(1.4) blur(10px) !important;-webkit-backdrop-filter:saturate(1.4) blur(10px) !important;border-bottom-color:rgba(0,0,0,.06) !important}}
+/* About: How we work, a robot cell that changes behaviour with scroll */
+.assembly.assembly--work{height:360vh}
+.assembly--work .assembly__parts{margin-top:26px}
+.assembly--work .assembly__parts li{padding:4px 0}
+.assembly--work .assembly__part-name{align-items:flex-start;font-size:17px;line-height:1.32;letter-spacing:-.01em}
+.assembly--work .assembly__part-name i{margin-top:4px;font-size:14px}
+.assembly--work .assembly__part-body{font-size:15px}
+.assembly--work .assembly__part-body a{color:#fff}
+.assembly--work .assembly__label{padding:0 0 10px;transition:color .3s}
+.assembly--work .assembly__label.is-active{color:#ff9d66}
+@media (max-width:899px){
+  .assembly.assembly--work{height:330vh}
+  .assembly--work .assembly__part-name{font-size:16px}
+  .assembly--work .assembly__part-body{font-size:14px}
+}
+@media (max-width:899px){
+  .assembly--work .assembly__sticky::after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(rgba(6,7,8,0),#060708 45%);pointer-events:none}
+  .assembly--work .assembly__copy{z-index:2}
+}
+/* Canvas-rendered hero strip: the <video> elements stay in the page (so they
+   keep decoding and media.js can pause them off-screen) but are invisible. */
+.hero-strip__canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:block}
+.hero-strip--canvas .hero-tile{width:8px !important;height:8px !important;transform:none !important;opacity:0 !important;pointer-events:none;clip-path:none}
